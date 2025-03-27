@@ -15,7 +15,7 @@
 
 ### 4. Project Structure
 Job_Q-A/<br>
-├── [/docs](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/docs) : <br>
-├── [/src](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/src) : <br>
-├── README.md
+&nbsp;&nbsp;&nbsp;├─ [/docs](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/docs) : <br>
+&nbsp;&nbsp;&nbsp;├─ [/src](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/src) : <br>
+&nbsp;&nbsp;&nbsp;├─ README.md
 
