@@ -7,8 +7,8 @@
 - [**발표자료**](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/docs/common) (.pdf / .pptx)
 
 ### 2. 개발 문서
-- [**API**]() (.md)
-- [**개발환경**]() (.md)
+- [**API**](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/docs/backend/API.md) (.md)
+- [**개발환경**](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/docs/development/setup.md) (.md)
 
 ### 3. 기타 자료
 - [**주요기능**](https://sudden-fiber-d99.notion.site/1c3bd606717780528fe8cf0b9df2a5db)
