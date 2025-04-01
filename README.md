@@ -15,7 +15,10 @@
 
 ### 4. Project Structure
 Job_Q-A/<br>
-&nbsp;&nbsp;&nbsp;├─ [/docs](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/docs) : <br>
-&nbsp;&nbsp;&nbsp;├─ [/src](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/src) : <br>
+&nbsp;&nbsp;&nbsp;├─ [/docs](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/docs) : 교수자 제출용, 개발 문서 등<br>
+&nbsp;&nbsp;&nbsp;├─ [/ios](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/ios) : iOS개발 문서<br>
+&nbsp;&nbsp;&nbsp;├─ [/backend](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/backend) : BackEnd 개발 문서 <br>
+&nbsp;&nbsp;&nbsp;├─ [/db](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/db) : db자료(ERD 등)<br>
+&nbsp;&nbsp;&nbsp;├─ [/docker](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/docker) : Dockerfile<br>
 &nbsp;&nbsp;&nbsp;├─ README.md
 
