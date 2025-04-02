@@ -19,5 +19,7 @@ Job_Q-A/<br>
 &nbsp;&nbsp;&nbsp;├─ [/ios](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/ios) : iOS souce code<br>
 &nbsp;&nbsp;&nbsp;├─ [/backend](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/backend) : Flask souce code <br>
 &nbsp;&nbsp;&nbsp;├─ [/db](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/db) : DB souce code<br>
+&nbsp;&nbsp;&nbsp;├─ [/Dockerfile](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/Dockerfile) : Dockerfile<br>
+&nbsp;&nbsp;&nbsp;├─ [/docker-compose.yaml](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/docker-compose.yaml) : docekr-compose<br>
 &nbsp;&nbsp;&nbsp;├─ README.md
 
