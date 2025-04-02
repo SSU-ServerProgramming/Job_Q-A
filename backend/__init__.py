@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify
 import pymysql
 
@@ -10,10 +11,10 @@ def test():
 
 def get_db_connection():
     return pymysql.connect(
-        host="db",
-        user="woojin",
-        password="12345678*",
-        database="test_db",
+        host=os.environ.get("DB_HOST"),
+        user=os.environ.get("DB_USER"),
+        password=os.environ.get("DB_PASSWORD"),
+        database=os.environ.get("DB_NAME"),
         port=3306,
         cursorclass=pymysql.cursors.DictCursor
     )
