@@ -10,13 +10,8 @@ services:
             - "8000:5000"
         volumes:
             - ./backend:/app
-        environment:
-            - FLASK_APP=__init__.py
-            - FLASK_DEBUG=1
-            - DB_HOST=db
-            - DB_USER=testuser
-            - DB_PASSWORD=testpass
-            - DB_NAME=testdb
+        env_file:
+            - .env.backend
         depends_on:
             - db
 
@@ -25,10 +20,7 @@ services:
         container_name: jobqa-db
         ports:
             - "3306:3306"
-        environment:
-            - MYSQL_ROOT_PASSWORD=rootpass
-            - MYSQL_DATABASE=testdb
-            - MYSQL_USER=testuser
-            - MYSQL_PASSWORD=testpass
+        env_file:
+            - .env.db
         volumes:
             - ./db:/docker-entrypoint-initdb.d
