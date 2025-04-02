@@ -8,7 +8,7 @@
 
 ### 2. 개발 문서
 - [**API**](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/docs/backend/API.md) (.md)
-- [**Docekr Set UP**]()
+- [**Docekr Set UP**](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/docs/development/setup.md) (.md)
 - [**개발환경**](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/docs/development/setup.md) (.md)
 
 ### 3. 기타 자료

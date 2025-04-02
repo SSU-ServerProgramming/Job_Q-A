@@ -1,5 +1,5 @@
 # How to Set Up On Docker?
-> Docker container에서 개발환결을 구성하기 위한 가이드
+> Docker container에서 개발환걍을 구성하기 위한 가이드
 
 ### 1. Install Docker on your computer
 - [www.docker.com](https://www.docker.com/) : 도커 공식 홈페이지 방문 후, 운영체제에 맞는 Docker Desktop 설치
@@ -41,3 +41,9 @@ cd ./Job_Q-A
 ### 4. Docker Container Build & Run
 - **docker compose up --build** : 처음 실행할때, requirements.txt, .env등의 파일이 변경되었을때(docker compose down도 같이)
 - **docker compose up** : 새로 빌드하지 않고, 실행할때
+
+
+### 5. Result
+- 웹 브라우저에서 **localhost:8000**에 접속해 결과가 나오는지 확인!
+- **localhost:8000** : Docker Container Test 문구가 나옴.
+- **localhost:8000/users** : db에 있는 더미데이터가 나옴
