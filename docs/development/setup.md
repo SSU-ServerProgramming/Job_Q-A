@@ -1,4 +1,4 @@
-# How to Set Up Our Proj?
+# How to Set Up On Docker?
 > Docker container에서 개발환결을 구성하기 위한 가이드
 
 ### 1. Install Docker on your computer
