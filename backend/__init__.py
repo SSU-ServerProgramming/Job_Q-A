@@ -1,3 +1,7 @@
+# Flask, MySQL이 Docker위에서 잘 작동하는지 테스트 하기 위한 간단한 코드입니다.
+# ./db/init.sql, seed.sql과 같은 파일들도 실제 프로젝트와 무관합니다.
+
+
 import os
 from flask import Flask, jsonify
 import pymysql
