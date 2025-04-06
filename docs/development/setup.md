@@ -1,5 +1,5 @@
 # How to Set Up On Docker?
-> Docker container에서 개발환걍을 구성하기 위한 가이드
+> Docker container에서 개발환경을 구성하기 위한 가이드
 
 ### 1. Install Docker on your computer
 - [www.docker.com](https://www.docker.com/) : 도커 공식 홈페이지 방문 후, 운영체제에 맞는 Docker Desktop 설치
