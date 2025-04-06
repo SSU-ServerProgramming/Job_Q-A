@@ -1,16 +1,21 @@
 # How to Set Up On Docker?
 > Docker container에서 개발환경을 구성하기 위한 가이드
 
-### 1. Install Docker on your computer
+### 1. Tech Stack
+    iOS : swiftUI
+    Backend : Flask 3.1 / Python 3.10
+    DataBase : MySQL 8.0
+
+### 2. Install Docker on your computer
 - [www.docker.com](https://www.docker.com/) : 도커 공식 홈페이지 방문 후, 운영체제에 맞는 Docker Desktop 설치
 
-### 2. Clone Our Repo
+### 3. Clone Our Repo
 ```bash
 git clone https://github.com/SSU-ServerProgramming/Job_Q-A.git
 cd ./Job_Q-A
 ``` 
 
-### 3. Edit **.env** files
+### 4. Edit **.env** files
 - [.env.backend](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/.env.backend.example) : Flask 설정을 위한 설정파일
 - [.env.db](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/.env.db.example) : MySQL 설정을 위한 설정파일
     1. .env.backend / .env.db 생성
@@ -38,12 +43,12 @@ cd ./Job_Q-A
         MYSQL_PASSWORD=EDIT_HERE //수정
         ```
 
-### 4. Docker Container Build & Run
+### 5. Docker Container Build & Run
 - **docker compose up --build** : 처음 실행할때, requirements.txt, .env등의 파일이 변경되었을때(docker compose down도 같이)
 - **docker compose up** : 새로 빌드하지 않고, 실행할때
 
 
-### 5. Result
+### 6. Result
 - 웹 브라우저에서 **localhost:8000**에 접속해 결과가 나오는지 확인!
 - **localhost:8000** : Docker Container Test 문구가 나옴.
 - **localhost:8000/users** : db에 있는 더미데이터가 나옴
