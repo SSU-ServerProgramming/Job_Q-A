@@ -8,8 +8,7 @@
 
 ### 2. 개발 문서
 - [**API**](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/docs/backend/API.md) (.md)
-- [**Docekr Set UP**](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/docs/development/setup.md) (.md)
-- [**개발환경**](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/docs/development/setup.md) (.md)
+- [**Docekr Set Up**](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/docs/development/setup.md) (.md)
 
 ### 3. 기타 자료
 - [**주요기능**](https://sudden-fiber-d99.notion.site/1c3bd606717780528fe8cf0b9df2a5db)
