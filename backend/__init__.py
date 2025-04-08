@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def test():
-    return "Docker Container TEST"
+    return "Docker Container Test"
 
 def get_db_connection():
     return pymysql.connect(

@@ -1,6 +1,6 @@
-INSERT INTO users (username, email)
+INSERT INTO users (username, email, company)
 VALUES  
-    ('ssumisfree', 'ssumisfree@example.com'),
-    ('woojin', 'woojinwork16@gmail.com'),
-    ('rest-point', 'rest-point@example.com'),
-    ('kim_tae_young', 'kim_tae_young@example.com');
+    ('ssumisfree', 'ssumisfree@example.com', 'Naver'),
+    ('woojin', 'woojinwork16@gmail.com', 'Kakao'),
+    ('rest-point', 'rest-point@example.com', 'Line'),
+    ('kim_tae_young', 'kim_tae_young@example.com', 'Coupang');
