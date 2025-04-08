@@ -16,11 +16,11 @@ cd ./Job_Q-A
 ``` 
 
 ### 4. Edit **.env** files
-- [.env.backend](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/.env.backend.example) : Flask 설정을 위한 설정파일
-- [.env.db](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/.env.db.example) : MySQL 설정을 위한 설정파일
+- [.env.backend](https://github.com/SSU-ServerProgramming/Job_Q-A/backend/docker/blob/main/.env.backend.example) : Flask 설정을 위한 설정파일
+- [.env.db](https://github.com/SSU-ServerProgramming/Job_Q-A/backend/docker/blob/main/.env.db.example) : MySQL 설정을 위한 설정파일
 1. .env.backend / .env.db 생성
     ```bash
-    cd Job_Q-A
+    cd Job_Q-A/backend/docker
     cp ./.env.backend.example .env.backend
     cp ./.env.db.example .env.db
     ```
