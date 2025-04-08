@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS questions (
     category VARCHAR(50),
     content VARCHAR(300),
     likes INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
@@ -23,6 +24,7 @@ CREATE TABLE IF NOT EXISTS comments (
     question_id INT,
     content VARCHAR(300),
     likes INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (question_id) REFERENCES questions(question_id)
 );
