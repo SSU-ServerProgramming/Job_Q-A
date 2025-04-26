@@ -61,3 +61,36 @@ def register():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@main.route("/login", methods=["POST"])
+def login():
+    try:
+        data = request.get_json()
+
+        email = data.get("email")
+        password = data.get("password")
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        sql = "SELECT * FROM users WHERE email = %s"
+        cursor.execute(sql, (email,))
+        user = cursor.fetchone()
+        conn.close()
+
+        if not user:
+            return jsonify({"error": "존재하지 않는 사용자입니다."}), 404
+
+        if user['password'] != password:
+            return jsonify({"error": "비밀번호가 일치하지 않습니다."}), 401
+
+        # 로그인 성공
+        return jsonify({
+            "message": "로그인 성공",
+            "nickname": user['nickname'],
+            "email": user['email'],
+            "user_id": user['user_id']
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
