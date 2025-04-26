@@ -1,26 +1,26 @@
-version: '3.8'
+version: "3.8"
 
 services:
-    backend:
-        build:
-            context: ..
-            dockerfile: docker/Dockerfile
-        container_name: jobqa-backend
-        ports:
-            - "8000:5000"
-        volumes:
-            - ../app:/app
-        env_file:
-            - .env.backend
-        depends_on:
-            - db
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: jobqa-backend
+    ports:
+      - "8000:5000"
+    volumes:
+      - ../app:/app
+    env_file:
+      - .env.backend
+    depends_on:
+      - db
 
-    db:
-        image: mysql:8.0
-        container_name: jobqa-db
-        ports:
-            - "3306:3306"
-        env_file:
-            - .env.db
-        volumes:
-            - ../db:/docker-entrypoint-initdb.d
+  db:
+    image: mysql:8.0
+    container_name: jobqa-db
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env.db
+    volumes:
+      - ../db:/docker-entrypoint-initdb.d
