@@ -47,10 +47,17 @@ def register():
         password = data.get("password")
         company_id = data.get("company_id")
 
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
         conn = get_db_connection()
         cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+        existing_user = cursor.fetchone()
+
+        if existing_user:
+            conn.close()
+            return jsonify({"error": "이미 존재하는 이메일입니다."}), 400
+
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
         sql = """
         INSERT INTO users (nickname, email, password, company_id)
