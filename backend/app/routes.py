@@ -5,6 +5,7 @@
 import os
 from flask import Blueprint, jsonify, request
 import pymysql
+import bcrypt
 
 
 main = Blueprint('main', __name__)
@@ -46,6 +47,8 @@ def register():
         password = data.get("password")
         company_id = data.get("company_id")
 
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
         conn = get_db_connection()
         cursor = conn.cursor()
 
@@ -53,7 +56,7 @@ def register():
         INSERT INTO users (nickname, email, password, company_id)
         VALUES (%s, %s, %s, %s)
         """
-        cursor.execute(sql, (nickname, email, password, company_id))
+        cursor.execute(sql, (nickname, email, hashed_password, company_id))
         conn.commit()
         conn.close()
 
