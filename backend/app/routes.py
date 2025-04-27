@@ -91,10 +91,9 @@ def login():
         if not user:
             return jsonify({"error": "존재하지 않는 사용자입니다."}), 404
 
-        if user['password'] != password:
+        if not bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
             return jsonify({"error": "비밀번호가 일치하지 않습니다."}), 401
 
-        # 로그인 성공
         return jsonify({
             "message": "로그인 성공",
             "nickname": user['nickname'],
