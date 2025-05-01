@@ -3,7 +3,7 @@ from ..database import get_db_connection
 
 user = Blueprint('user', __name__)
 
-@user.route("/users", methods=["GET"])
+@user.route("/", methods=["GET"])
 def get_users():
     try:
         conn = get_db_connection()
