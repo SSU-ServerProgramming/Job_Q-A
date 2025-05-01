@@ -255,3 +255,94 @@ def get_board_detail(board_id):
             "status": "error",
             "message": str(e)
         }), 500
+
+@board.route("/<int:board_id>", methods=["PUT"])
+def update_board(board_id):
+    try:
+        data = request.get_json()
+        user_id = data.get('user_id')
+        
+        if not user_id:
+            return jsonify({
+                "status": "error",
+                "message": "사용자 ID가 필요합니다."
+            }), 400
+            
+        updateable_fields = ['title', 'content', 'category_id']
+        update_data = {k: v for k, v in data.items() if k in updateable_fields and v is not None}
+            
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        check_sql = """
+        SELECT user_id 
+        FROM boards 
+        WHERE board_id = %s
+        """
+        cursor.execute(check_sql, (board_id,))
+        board = cursor.fetchone()
+        
+        if not board:
+            conn.close()
+            return jsonify({
+                "status": "error",
+                "message": "존재하지 않는 게시글입니다."
+            }), 404
+            
+        if board['user_id'] != user_id:
+            conn.close()
+            return jsonify({
+                "status": "error",
+                "message": "게시글 수정 권한이 없습니다."
+            }), 403
+            
+        if update_data:
+            set_clause = ", ".join([f"{field} = %s" for field in update_data.keys()])
+            update_sql = f"""
+            UPDATE boards 
+            SET {set_clause}
+            WHERE board_id = %s
+            """
+            
+            values = list(update_data.values())
+            values.append(board_id)
+            
+            cursor.execute(update_sql, values)
+            conn.commit()
+        
+        select_sql = """
+        SELECT 
+            b.board_id,
+            b.title,
+            b.content,
+            b.date,
+            b.like,
+            b.comment_count,
+            b.user_id,
+            u.nickname as writer,
+            c.name as category_name,
+            comp.name as company_name
+        FROM boards b
+        LEFT JOIN users u ON b.user_id = u.user_id
+        LEFT JOIN categories c ON b.category_id = c.category_id
+        LEFT JOIN companies comp ON u.company_id = comp.company_id
+        WHERE b.board_id = %s
+        """
+        
+        cursor.execute(select_sql, (board_id,))
+        updated_board = cursor.fetchone()
+        updated_board['date'] = updated_board['date'].strftime('%Y-%m-%d %H:%M:%S')
+        
+        conn.close()
+        
+        return jsonify({
+            "status": "success",
+            "message": "게시글이 성공적으로 수정되었습니다.",
+            "data": updated_board
+        }), 200
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
