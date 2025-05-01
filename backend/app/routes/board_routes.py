@@ -113,3 +113,54 @@ def create_board():
             "status": "error",
             "message": str(e)
         }), 500
+
+@board.route("/<int:board_id>", methods=["DELETE"])
+def delete_board(board_id):
+    try:
+        user_id = request.args.get('user_id', type=int)
+        if not user_id:
+            return jsonify({
+                "status": "error",
+                "message": "사용자 ID가 필요합니다."
+            }), 400
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        check_sql = """
+        SELECT user_id 
+        FROM boards 
+        WHERE board_id = %s
+        """
+        cursor.execute(check_sql, (board_id,))
+        board = cursor.fetchone()
+        
+        if not board:
+            conn.close()
+            return jsonify({
+                "status": "error",
+                "message": "존재하지 않는 게시글입니다."
+            }), 404
+            
+        if board['user_id'] != user_id:
+            conn.close()
+            return jsonify({
+                "status": "error",
+                "message": "게시글 삭제 권한이 없습니다."
+            }), 403
+        
+        delete_sql = "DELETE FROM boards WHERE board_id = %s"
+        cursor.execute(delete_sql, (board_id,))
+        conn.commit()
+        conn.close()
+        
+        return jsonify({
+            "status": "success",
+            "message": "게시글이 성공적으로 삭제되었습니다."
+        }), 200
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
