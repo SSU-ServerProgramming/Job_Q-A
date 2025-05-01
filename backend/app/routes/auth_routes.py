@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 import bcrypt
-from app.database import get_db_connection
+from ..database import get_db_connection
 
 auth = Blueprint('auth', __name__)
 

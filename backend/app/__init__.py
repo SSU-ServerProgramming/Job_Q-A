@@ -6,9 +6,11 @@ def create_app():
     from .routes.auth_routes import auth
     from .routes.user_routes import user
     from .routes.main_routes import main
+    from .routes.board_routes import board
     
     app.register_blueprint(auth, url_prefix='/auth')
     app.register_blueprint(user, url_prefix='/user')
     app.register_blueprint(main, url_prefix='/')
+    app.register_blueprint(board, url_prefix='/board')
     
     return app
