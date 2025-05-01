@@ -1,7 +1,7 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 
 main = Blueprint('main', __name__)
 
-@main.route("/")
+@main.route("/", methods=["GET"])
 def test():
     return "Docker Container Test"
