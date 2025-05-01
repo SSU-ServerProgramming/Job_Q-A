@@ -3,7 +3,7 @@ from ..database import get_db_connection
 
 category = Blueprint('category', __name__)
 
-@category.route("/categories", methods=["GET"])
+@category.route("/", methods=["GET"])
 def get_all_categories():
     try:
         conn = get_db_connection()

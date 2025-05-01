@@ -10,9 +10,9 @@ def create_app():
     from .routes.category_routes import category
     
     app.register_blueprint(auth, url_prefix='/auth')
-    app.register_blueprint(user, url_prefix='/user')
+    app.register_blueprint(user, url_prefix='/users')
     app.register_blueprint(main, url_prefix='/')
-    app.register_blueprint(board, url_prefix='/board')
-    app.register_blueprint(category, url_prefix='/category')
+    app.register_blueprint(board, url_prefix='/boards')
+    app.register_blueprint(category, url_prefix='/categories')
     
     return app
