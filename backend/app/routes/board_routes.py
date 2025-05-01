@@ -164,3 +164,94 @@ def delete_board(board_id):
             "status": "error",
             "message": str(e)
         }), 500
+
+@board.route("/<int:board_id>", methods=["GET"])
+def get_board_detail(board_id):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        sql = """
+        SELECT 
+            b.board_id,
+            b.title,
+            b.content,
+            b.date,
+            b.like,
+            b.comment_count,
+            b.user_id,
+            u.nickname as writer,
+            c.name as category_name,
+            comp.name as company_name
+        FROM boards b
+        LEFT JOIN users u ON b.user_id = u.user_id
+        LEFT JOIN categories c ON b.category_id = c.category_id
+        LEFT JOIN companies comp ON u.company_id = comp.company_id
+        WHERE b.board_id = %s
+        """
+        
+        cursor.execute(sql, (board_id,))
+        board = cursor.fetchone()
+        
+        if not board:
+            conn.close()
+            return jsonify({
+                "status": "error",
+                "message": "존재하지 않는 게시글입니다."
+            }), 404
+        
+        board['date'] = board['date'].strftime('%Y-%m-%d %H:%M:%S')
+        
+        comment_sql = """
+        SELECT 
+            c.comment_id,
+            c.content,
+            c.date,
+            c.like,
+            c.parent_comment_id,
+            u.nickname as writer,
+            comp.name as company_name
+        FROM comments c
+        LEFT JOIN users u ON c.user_id = u.user_id
+        LEFT JOIN companies comp ON u.company_id = comp.company_id
+        WHERE c.board_id = %s
+        ORDER BY 
+            CASE WHEN c.parent_comment_id = 0 THEN c.comment_id ELSE c.parent_comment_id END,
+            c.date ASC
+        """
+        
+        cursor.execute(comment_sql, (board_id,))
+        comments = cursor.fetchall()
+        
+        for comment in comments:
+            comment['date'] = comment['date'].strftime('%Y-%m-%d %H:%M:%S')
+        
+        conn.close()
+        
+        comment_tree = []
+        comment_map = {}
+        
+        for comment in comments:
+            comment['replies'] = []
+            comment_map[comment['comment_id']] = comment
+            
+            if comment['parent_comment_id'] == 0:
+                comment_tree.append(comment)
+            else:
+                parent = comment_map.get(comment['parent_comment_id'])
+                if parent:
+                    parent['replies'].append(comment)
+        
+        return jsonify({
+            "status": "success",
+            "data": {
+                "board": board,
+                "comments": comment_tree
+            }
+        }), 200
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
