@@ -1,54 +1,97 @@
-CREATE TABLE IF NOT EXISTS `companies` (
-  `company_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`company_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- companies table
+CREATE TABLE IF NOT EXISTS companies (
+  id       INT NOT NULL AUTO_INCREMENT,
+  name     VARCHAR(45) NOT NULL,
+  domain   VARCHAR(255),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) NOT NULL,
-  `nickname` varchar(45) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `company_id` int NOT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `email_UNIQUE` (`email`),
-  CONSTRAINT `fk_users_company_id` FOREIGN KEY (`company_id`) REFERENCES `companies` (`company_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- users table
+CREATE TABLE IF NOT EXISTS users (
+  id             INT NOT NULL AUTO_INCREMENT,
+  email          VARCHAR(45) NOT NULL,
+  name           VARCHAR(45) NOT NULL,
+  password       VARCHAR(200) NOT NULL,
+  company_id     INT NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_users_email           (email),
+  KEY        idx_users_company_id     (company_id),
+  CONSTRAINT fk_users_company_id
+    FOREIGN KEY (company_id)
+    REFERENCES companies (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `categories` (
-  `category_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`category_id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- categories table
+CREATE TABLE IF NOT EXISTS categories (
+  id       INT NOT NULL AUTO_INCREMENT,
+  name     VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_categories_name      (name)
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE IF NOT EXISTS `boards` (
-  `board_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `title` varchar(45) NOT NULL,
-  `category_id` int NOT NULL,
-  `content` varchar(2000) DEFAULT NULL,
-  `date` datetime NOT NULL,
-  `like` int DEFAULT '0',
-  `comment_count` int DEFAULT '0',
-  PRIMARY KEY (`board_id`),
-  KEY `user_id_idx` (`user_id`),
-  KEY `category_id_idx` (`category_id`),
-  CONSTRAINT `fk_boards_category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_boards_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- boards table
+CREATE TABLE IF NOT EXISTS boards (
+  id               INT NOT NULL AUTO_INCREMENT,
+  user_id          INT NOT NULL,
+  category_id      INT NOT NULL,
+  title            VARCHAR(45) NOT NULL,
+  content          VARCHAR(2000) DEFAULT NULL,
+  num_like         INT NOT NULL DEFAULT 0,
+  num_comment      INT NOT NULL DEFAULT 0,
+  created_at       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                    ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY        idx_boards_user_id      (user_id),
+  KEY        idx_boards_category_id  (category_id),
+  CONSTRAINT fk_boards_user
+    FOREIGN KEY (user_id)
+    REFERENCES users (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_boards_category
+    FOREIGN KEY (category_id)
+    REFERENCES categories (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `comments` (
-  `comment_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `board_id` int NOT NULL,
-  `content` varchar(200) NOT NULL,
-  `date` datetime NOT NULL,
-  `like` int DEFAULT '0',
-  `parent_comment_id` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`comment_id`),
-  KEY `board_id_idx` (`board_id`),
-  KEY `user_id_idx` (`user_id`),
-  CONSTRAINT `fk_comments_board_id` FOREIGN KEY (`board_id`) REFERENCES `boards` (`board_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_comments_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- comments table
+CREATE TABLE IF NOT EXISTS comments (
+  id                  INT NOT NULL AUTO_INCREMENT,
+  user_id             INT NOT NULL,
+  board_id            INT NOT NULL,
+  parent_comment_id   INT NULL,
+  content             VARCHAR(200) NOT NULL,
+  num_like            INT NOT NULL DEFAULT 0,
+  created_at          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                       ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY        idx_comments_user_id   (user_id),
+  KEY        idx_comments_board_id  (board_id),
+  CONSTRAINT fk_comments_user
+    FOREIGN KEY (user_id)
+    REFERENCES users (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_comments_board
+    FOREIGN KEY (board_id)
+    REFERENCES boards (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_comments_parent
+    FOREIGN KEY (parent_comment_id)
+    REFERENCES comments (id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4;

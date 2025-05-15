@@ -19,3 +19,39 @@ Job_Q-A/<br>
 &nbsp;&nbsp;&nbsp;├─ [/ios](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/ios) : iOS souce code<br>
 &nbsp;&nbsp;&nbsp;├─ [/backend](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/backend) : backend(+db) souce code <br>
 &nbsp;&nbsp;&nbsp;├─ README.md
+```
+backend/
+├── docker/
+├── db/
+├── config/
+├── manage.py
+├── app/
+│   ├── __init__.py
+│   ├── presentation/           # 1. Presentation
+│   │   ├── __init__.py
+│   │   ├── routes/
+│   │   │   └── user_route.py
+│   │   └── controllers/
+│   │       └── user_controller.py
+│   ├── application/            # 2. Application
+│   │   ├── __init__.py
+│   │   └── services/
+│   │       └── user_service.py
+│   ├── persistence/            # 3. Persistence
+│   │   ├── __init__.py
+│   │   └── repositories/
+│   │       └── user_repository.py
+│   ├── database/              # 4. Database
+│   │   ├── __init__.py 
+│   │   ├── session.py 
+│   │   └── models/
+|   |       ├── base.py
+|   |       ├── board.py
+|   |       ├── category.py
+|   |       ├── comment.py
+|   |       ├── company.py
+│   │       └── user.py
+│   └── config.py
+├── requirements.txt
+└── README.md
+```

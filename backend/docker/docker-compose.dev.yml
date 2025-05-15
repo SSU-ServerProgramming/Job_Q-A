@@ -9,11 +9,16 @@ services:
     ports:
       - "8000:5000"
     volumes:
-      - ../app:/app
+      - ../app:/app/app
+      - ../manage.py:/app/manage.py
+      - ../requirements.txt:/app/requirements.txt
+    environment:
+      - FLASK_ENV=development
     env_file:
-      - .env.backend
+      - ../config/.env.backend
     depends_on:
       - db
+    command: python manage.py run --host=0.0.0.0
 
   db:
     image: mysql:8.0
@@ -21,7 +26,7 @@ services:
     ports:
       - "3306:3306"
     env_file:
-      - .env.db
+      - ../config/.env.db
     volumes:
       - ../db:/docker-entrypoint-initdb.d
       - mysql-data:/var/lib/mysql
