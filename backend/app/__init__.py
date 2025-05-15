@@ -1,18 +1,40 @@
-from flask import Flask
+import os
+from flask import Flask, g
+from app.config import DevelopmentConfig, ProductionConfig
 
-def create_app():
-    app = Flask(__name__)
-    
-    from .routes.auth_routes import auth
-    from .routes.user_routes import user
-    from .routes.main_routes import main
-    from .routes.board_routes import board
-    from .routes.category_routes import category
-    
-    app.register_blueprint(auth, url_prefix='/auth')
-    app.register_blueprint(user, url_prefix='/users')
-    app.register_blueprint(main, url_prefix='/')
-    app.register_blueprint(board, url_prefix='/boards')
-    app.register_blueprint(category, url_prefix='/categories')
-    
+from app.presentation import routes
+from app.database.session import SessionLocal
+
+
+def create_app() -> Flask:
+    env = os.getenv("FLASK_ENV", "production").lower()
+    config_class = {
+        "development": DevelopmentConfig,
+        "production": ProductionConfig
+    }[env]
+
+    app = Flask(__name__) 
+    app.config.from_object(config_class)
+    config_class.init_app(app)
+
+    @app.before_request
+    def open_session():
+        # 요청 시작할 때 한 번만 세션 생성
+        g.db = SessionLocal()
+
+    @app.teardown_request
+    def close_session(exc=None):
+        db = g.pop("db", None)
+        if db:
+            if exc:
+                db.rollback()
+            else:
+                db.commit()
+            db.close()
+            SessionLocal.remove() 
+
+
+    routes.register(app)
+
     return app
+>>>>>>> c83a9e3 (feat: database layer구현)
