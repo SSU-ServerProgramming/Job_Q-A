@@ -18,16 +18,14 @@ def create_board(data):
         data.get('content')
     )
 
-def delete_board(user_id, board_id):
-        board = BoardModel.get_board(board_id)
-
-        if board['user_id'] != user_id:
+def delete_board(user_id, board_id, writer_id):
+        if writer_id != user_id:
             raise PermissionError("게시글 삭제 권한이 없습니다.")
         
         return BoardModel.delete_board(board_id)
         
-def get_board(board_id):
-    board = BoardModel.get_board(board_id)
+def get_board(board_id, category_id):
+    board = BoardModel.get_board(board_id, category_id)
     board['date'] = board['date'].strftime('%Y-%m-%d %H:%M:%S')
     
     comments = CommentModel.get_all_comments(board_id)
@@ -50,35 +48,25 @@ def get_board(board_id):
                 parent['replies'].append(comment)
     
     return {
-        "status": "success",
-        "data": {
-            "board": board,
-            "comments": comment_tree
-        }
+        "board": board,
+        "comments": comment_tree,
     }
 
-def update_board(board_id, user_id, data):
-    board = BoardModel.get_board(board_id)
-    
-    if board['user_id'] != user_id:
+def update_board(board_id, user_id, data, writer_id, category_id):
+    if user_id != writer_id:
         raise PermissionError("게시글 수정 권한이 없습니다.")
     
     updateable_fields = ['title', 'content', 'category_id']
     update_data = {k: v for k, v in data.items() if k in updateable_fields and v is not None}
     
     if not update_data:
-        return {
-            "status": "success",
-            "message": "수정할 내용이 없습니다.",
-            "data": board
-        }
+        return BoardModel.get_board(board_id, category_id)
     
-    BoardModel.update_board(board_id, update_data)
-    updated_board = BoardModel.get_board(board_id)
-    updated_board['date'] = updated_board['date'].strftime('%Y-%m-%d %H:%M:%S')
-    
-    return {
-        "status": "success",
-        "message": "게시글이 성공적으로 수정되었습니다.",
-        "data": updated_board
-    }
+    BoardModel.update_board(board_id, update_data, category_id)
+    return BoardModel.get_board(board_id, category_id)
+
+def check_board_exists(board_id, category_id):
+    result = BoardModel.check_board_exists(board_id, category_id)
+    if not result:
+        raise ValueError("존재하지 않는 게시글입니다.")
+    return result

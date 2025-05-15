@@ -14,7 +14,7 @@ def register(data):
     
     UserModel.create_user(nickname, email, hashed_password, company_id)
     
-    return {"message": "회원가입 성공"}
+    return {"email": email, "nickname": nickname}
 
 def login(data):
     email = data['email']
@@ -28,7 +28,6 @@ def login(data):
         raise ValueError("비밀번호가 일치하지 않습니다.")
 
     return {
-        "message": "로그인 성공",
         "nickname": user['nickname'],
         "email": user['email'],
         "user_id": user['user_id']

@@ -16,7 +16,4 @@ def get_all_categories():
   categories = cursor.fetchall()
   conn.close()
   
-  return {
-      "data": categories,
-      "count": len(categories)
-  }
+  return categories

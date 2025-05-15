@@ -30,10 +30,7 @@ def get_all_boards():
     
     conn.close()
     
-    return {
-        "data": boards,
-        "count": len(boards)
-    }
+    return boards
 
 def create_board(user_id, title, category_id, content): 
     conn = db.get_db_connection()
@@ -81,7 +78,7 @@ def create_board(user_id, title, category_id, content):
     
     return new_board
 
-def get_board(board_id):
+def get_board(board_id, category_id):
     conn = db.get_db_connection()
     cursor = conn.cursor()
         
@@ -101,15 +98,17 @@ def get_board(board_id):
     LEFT JOIN users u ON b.user_id = u.user_id
     LEFT JOIN categories c ON b.category_id = c.category_id
     LEFT JOIN companies comp ON u.company_id = comp.company_id
-    WHERE b.board_id = %s
+    WHERE b.board_id = %s AND b.category_id = %s
     """
     
-    cursor.execute(sql, (board_id,))
+    cursor.execute(sql, (board_id, category_id))
     board = cursor.fetchone()
     conn.close()
 
     if not board:
         raise ValueError("존재하지 않는 게시글입니다.")
+    
+    board['date'] = board['date'].strftime('%Y-%m-%d %H:%M:%S')
     
     return board
 
@@ -125,20 +124,41 @@ def delete_board(board_id):
         "message": "게시글이 성공적으로 삭제되었습니다."
     }
 
-def update_board(board_id, update_data):
+def update_board(board_id, update_data, category_id):
     conn = db.get_db_connection()
     cursor = conn.cursor()
+    
+    # date 필드는 업데이트하지 않음
+    if 'date' in update_data:
+        del update_data['date']
     
     set_clause = ", ".join([f"{field} = %s" for field in update_data.keys()])
     update_sql = f"""
     UPDATE boards 
     SET {set_clause}
-    WHERE board_id = %s
+    WHERE board_id = %s AND category_id = %s
     """
     
     values = list(update_data.values())
     values.append(board_id)
+    values.append(category_id)
     
     cursor.execute(update_sql, values)
     conn.commit()
     conn.close()
+
+def check_board_exists(board_id, category_id):
+    conn = db.get_db_connection()
+    cursor = conn.cursor()
+        
+    sql = """
+    SELECT user_id
+    FROM boards 
+    WHERE board_id = %s AND category_id = %s
+    """
+    
+    cursor.execute(sql, (board_id, category_id))
+    result = cursor.fetchone()
+    conn.close()
+
+    return result
