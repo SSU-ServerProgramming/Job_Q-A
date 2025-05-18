@@ -10,7 +10,7 @@ services:
       - "8000:5000"
     environment:
       - FLASK_ENV=production
-      - APP_ENV=production
+      - FLASK_DEBUG=1
     env_file:
       - ../config/.env.backend
     depends_on:
