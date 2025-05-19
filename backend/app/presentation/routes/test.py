@@ -13,8 +13,8 @@ def test():
 
 
 
-
-@test_bp.route('/get_all_users')
+# test용으로 작성해두었습니다. Application에서 주요로직을 정의해야합니다.
+@test_bp.route('/all_users')
 def test_get_all_users():
     db = get_db_session()
     try:

@@ -1,23 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.database.models.user import User
-# from app.database.session import get_db
 
-
-# class UserRepository:
-#     def __init__(self):
-#         self.session = get_db()
-
-#     def get_by_id(self, user_id: int) -> User | None:
-#         return self.session.get(User, user_id)
-
-#     def add(self, user: User) -> User:
-#         self.session.add(user)
-#         self.session.commit()
-#         return user
-
-#     def close(self):
-#         self.session.close()
 
 class UserRepository:
     def __init__(self, session: Session):

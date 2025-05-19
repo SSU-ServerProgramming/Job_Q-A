@@ -29,10 +29,8 @@ backend/
 │   ├── __init__.py
 │   ├── presentation/           # 1. Presentation
 │   │   ├── __init__.py
-│   │   ├── routes/
-│   │   │   └── user_route.py
-│   │   └── controllers/
-│   │       └── user_controller.py
+│   │   └── routes/
+│   │       └── user_route.py
 │   ├── application/            # 2. Application
 │   │   ├── __init__.py
 │   │   └── services/
@@ -41,7 +39,7 @@ backend/
 │   │   ├── __init__.py
 │   │   └── repositories/
 │   │       └── user_repository.py
-│   ├── database/              # 4. Database
+│   ├── database/               # 4. Database
 │   │   ├── __init__.py 
 │   │   ├── session.py 
 │   │   └── models/
