@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.database.models.user import User
+from app.database.models.company import Company
 
 
 class UserRepository:
@@ -45,3 +46,22 @@ class UserRepository:
     def get_all(self, skip: int = 0, limit: int = 100) -> list[User]:
         """모든 사용자 정보를 조회합니다 (페이징 처리 가능)."""
         return self.session.query(User).offset(skip).limit(limit).all()
+    
+    def get_info_for_mypage(self, user_id: int) -> dict:
+        """마이페이지 용 사용자 정보 (회사 포함) 조회"""
+        result = (
+            self.session.query(User, Company)
+            .join(Company, User.company_id == Company.id)
+            .filter(User.id == user_id)
+            .first()
+        )
+        if not result:
+            return {}
+
+        user, company = result
+        return {
+            "user_id": user.id,
+            "email": user.email,
+            "nickname": user.name,
+            "company_name": company.name
+        }
