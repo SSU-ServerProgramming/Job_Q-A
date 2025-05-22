@@ -13,8 +13,8 @@ services:
       - ../manage.py:/app/manage.py
       - ../requirements.txt:/app/requirements.txt
     environment:
-      - FLASK_ENV=development
-      - FLASK_DEBUG=1
+      - COMPOSE_PROJECT_NAME=JobQA-Dev
+      - APP_ENV=development
     env_file:
       - ../config/.env.backend
     depends_on:

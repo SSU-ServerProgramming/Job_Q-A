@@ -24,6 +24,7 @@ backend/
 ├── docker/
 ├── db/
 ├── config/
+├── wsgi.py
 ├── manage.py
 ├── app/
 │   ├── __init__.py

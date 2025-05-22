@@ -26,3 +26,10 @@ class DevelopmentConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
+
+
+config = {
+    "development": DevelopmentConfig,
+    "production": ProductionConfig,
+    "default" : DevelopmentConfig
+}
