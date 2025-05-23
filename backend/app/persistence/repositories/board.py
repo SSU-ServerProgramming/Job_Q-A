@@ -61,7 +61,7 @@ class BoardRepostory(BaseRepository):
         )
         return result
     
-    def get_all_board(self, skip: int = 0, limit: int = 100) -> list[Board]:
+    def get_all_boards(self, skip: int = 0, limit: int = 100) -> list[Board]:
         """최근 생성된 순으로 게시글을 조회합니다.(페이징)"""
         result = (
             self.session.query(Board)

@@ -4,6 +4,6 @@ from .base import BaseService
 
 
 class BoardService(BaseService):
-    def get_all_board(self):
+    def get_all_boards(self):
         repo = BoardRepostory(self.session)
-        return repo.get_all_board()
+        return repo.get_all_boards()
