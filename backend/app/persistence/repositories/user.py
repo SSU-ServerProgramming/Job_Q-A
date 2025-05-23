@@ -1,12 +1,9 @@
-from sqlalchemy.orm import Session
+from .base import BaseRepository
 
 from app.database.models.user import User
+from app.database.models.company import Company
 
-
-class UserRepository:
-    def __init__(self, session: Session):
-        self.session = session
-
+class UserRepository(BaseRepository):
     def get_by_id(self, user_id: int) -> User | None:
         """ID로 사용자 정보를 조회합니다."""
         return self.session.query(User).filter(User.id == user_id).first()
@@ -26,13 +23,13 @@ class UserRepository:
     def create(self, user: User) -> User:
         """새로운 사용자 정보를 생성합니다."""
         self.session.add(user)
-        self.session.flush()
+        self.session.commit()
         return user
 
     def update(self, user: User) -> User:
         """기존 사용자 정보를 업데이트합니다."""
         self.session.merge(user)
-        self.session.flush()
+        self.session.commit()
         return user
 
     def delete(self, user_id: int) -> None:
@@ -40,8 +37,18 @@ class UserRepository:
         user = self.get_by_id(user_id)
         if user:
             self.session.delete(user)
-            self.session.flush()
+            self.session.commit()
 
-    def get_all(self, skip: int = 0, limit: int = 100) -> list[User]:
-        """모든 사용자 정보를 조회합니다 (페이징 처리 가능)."""
+    def get_all_user(self, skip: int = 0, limit: int = 100) -> list[User]:
+        """모든 사용자 정보를 조회합니다 (페이징)."""
         return self.session.query(User).offset(skip).limit(limit).all()
+    
+    def get_by_user_id_with_company(self, user_id: int) -> tuple[User, Company] | None:
+        """마이페이지 용 사용자 정보 (회사 포함) 조회"""
+        result = (
+            self.session.query(User, Company)
+            .join(Company, User.company_id == Company.id)
+            .filter(User.id == user_id)
+            .first()
+        )
+        return result

@@ -1,4 +1,4 @@
-# Job_Q&A (프로젝트 이름 미정)
+# 잡잡한 세상 (Job Q&A)
 > 숭실대학교 서버프로그래밍 3조 (김수민, 김우진, 김준석, 김태영)
 
 ### 1. Summary
@@ -34,6 +34,7 @@ backend/
 │   │       └── user_route.py
 │   ├── application/            # 2. Application
 │   │   ├── __init__.py
+│   │   ├── dto/
 │   │   └── services/
 │   │       └── user_service.py
 │   ├── persistence/            # 3. Persistence
