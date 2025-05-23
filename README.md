@@ -34,7 +34,6 @@ backend/
 │   │       └── user_route.py
 │   ├── application/            # 2. Application
 │   │   ├── __init__.py
-│   │   ├── dto/
 │   │   └── services/
 │   │       └── user_service.py
 │   ├── persistence/            # 3. Persistence
