@@ -1,22 +1,31 @@
-from flask import Blueprint, request, jsonify
-from app.persistence import get_db_session
-from app.database.models.board import Board
+from flask import Blueprint, jsonify, g
+
+from app.application.services.board import BoardService
+
 
 board_bp = Blueprint("board", __name__, url_prefix="/board")
 
-@board_bp.route("", methods=["POST"])
+
+@board_bp.route("/", methods=["GET"])
+def get_all_boards():
+    boards = BoardService(g.db).get_all_boards()
+    board_list = [f"{b.id}: {b.user_id}, {b.category_id}, {b.title}, {b.content}, {b.num_like}, {b.num_comment}, {b.creat_at}, {b.updated_at}" for b in boards]
+    return jsonify(board_list)
+
+
+@board_bp.route("/", methods=["POST"])
 def create_board():
-    data = request.json
-    db = get_db_session()
-    try:
-        board = Board(
-            user_id=data["user_id"],
-            title=data["title"],
-            category_id=data["category_id"],
-            content=data["content"]
-        )
-        db.add(board)
-        db.flush()
-        return jsonify(status="success", data={"board_id": board.id}), 201
-    finally:
-        db.close()
+    pass
+
+
+@board_bp.route("/<int:board_id>", methods=["DELETE"])
+def delete_board(board_id):
+    pass
+
+@board_bp.route("/<int:board_id>", methods=["GET"])
+def get_board(board_id):
+    pass
+
+@board_bp.route("/<int:board_id>", methods=["PUT"])
+def update_board(board_id):
+    pass

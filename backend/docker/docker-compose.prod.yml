@@ -8,14 +8,18 @@ services:
     container_name: jobqa-backend
     ports:
       - "8000:5000"
+    volumes:
+      - ../app:/app/app
+      - ../manage.py:/app/manage.py
+      - ../requirements.txt:/app/requirements.txt
     environment:
-      - FLASK_ENV=production
-      - FLASK_DEBUG=1
+      - COMPOSE_PROJECT_NAME=JobQA-Prod
+      - APP_ENV=production
     env_file:
       - ../config/.env.backend
     depends_on:
       - db
-    command: gunicorn -b 0.0.0.0:5000 manage:app
+    command: gunicorn -b 0.0.0.0:5000 wsgi:app
   
   db:
     image: mysql:8.0

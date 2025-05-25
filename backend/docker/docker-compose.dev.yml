@@ -13,12 +13,13 @@ services:
       - ../manage.py:/app/manage.py
       - ../requirements.txt:/app/requirements.txt
     environment:
-      - FLASK_ENV=development
-      - FLASK_DEBUG=1
+      - COMPOSE_PROJECT_NAME=JobQA-Dev
+      - APP_ENV=development
     env_file:
       - ../config/.env.backend
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     command: python manage.py run --host=0.0.0.0
 
   db:
@@ -31,6 +32,11 @@ services:
     volumes:
       - ../db:/docker-entrypoint-initdb.d
       - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mysql-data:

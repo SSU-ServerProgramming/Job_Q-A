@@ -1,13 +1,12 @@
 from flask import Flask
-
-from .test import test_bp
-from .comment import comment_bp
-from .mypage import mypage_bp
+from .user import user_bp
 from .board import board_bp
+# from .auth import auth_bp
+# from .category import category_bp
 
 
-def register(app: Flask) -> None:
-    app.register_blueprint(test_bp)
-    app.register_blueprint(comment_bp)
-    app.register_blueprint(mypage_bp)
+def register(app):
+    app.register_blueprint(user_bp)
     app.register_blueprint(board_bp)
+    # app.register_blueprint(auth_bp)
+    # app.register_blueprint(category_bp)
