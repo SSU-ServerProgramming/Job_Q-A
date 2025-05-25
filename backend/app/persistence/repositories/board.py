@@ -5,20 +5,19 @@ from app.database.models.board import Board
 from app.database.models.user import User
 
 
-class BoardRepostory(BaseRepository):
+class BoardRepository(BaseRepository):
     def get_by_id(self, board_id: int) -> Board | None:
         """ID로 게시글을 조회합니다."""
         return self.session.query(Board).filter(Board.id == board_id).first()
     
     def get_by_user_id(self, user_id: int) -> list[Board]:
         """User ID로 게시글을 최신 생성순으로 조회합니다."""
-        result =  (
-            self.session.query(Board, User)
-            .join(Board, Board.user_id == User.id)
-            .filter(User.id == user_id)
+        return (
+            self.session.query(Board)
+            .filter(Board.user_id == user_id)
             .order_by(Board.created_at.desc())
+            .all()
         )
-        return result
     
     def get_by_category_id(self, category_id: int, skip: int = 0, limit: int = 100) -> list[Board]:
         """Category ID로 게시글을 최신 생성순으로 조회합니다.(페이징)"""

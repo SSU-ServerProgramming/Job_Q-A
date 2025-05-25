@@ -48,6 +48,7 @@ backend/
 |   |       ├── board.py
 |   |       ├── category.py
 |   |       ├── comment.py
+|   |       ├── comment_like.py
 |   |       ├── company.py
 │   │       └── user.py
 │   └── config.py

@@ -1,67 +1,47 @@
-from flask import Blueprint, request, jsonify
-from app.persistence import get_db_session
-from app.persistence.repositories.comment_repository import CommentRepository
-from flask import Response
-import json
+from flask import Blueprint, request, jsonify, g
+from app.application.services.comment import CommentService
 
 comment_bp = Blueprint("comment", __name__, url_prefix="/comment")
 
-# 댓글 작성
+
 @comment_bp.route("", methods=["POST"])
 def create_comment():
     data = request.json
-    db = get_db_session()
-    try:
-        repo = CommentRepository(db)
-        result = repo.create(data)
-        return jsonify(status="success", data=result), 201
-    finally:
-        db.close()
+    created = CommentService(g.db).create_comment(data)
+    return jsonify({"status": "success", "data": created.to_dict_full()}), 201
 
-# 댓글 수정
+
 @comment_bp.route("/<int:comment_id>", methods=["PUT"])
 def update_comment(comment_id):
     data = request.json
-    db = get_db_session()
-    try:
-        repo = CommentRepository(db)
-        result = repo.update(comment_id, data)
-        return jsonify(status="success", data=result)
-    finally:
-        db.close()
+    updated = CommentService(g.db).update_comment(comment_id, data)
+    if updated is None:
+        return jsonify({"status": "error", "message": "권한이 없거나 댓글이 존재하지 않습니다."}), 403
+    return jsonify({"status": "success", "data": updated.to_dict_full()})
 
-# 댓글 삭제
+
 @comment_bp.route("/<int:comment_id>", methods=["DELETE"])
 def delete_comment(comment_id):
     data = request.json
-    db = get_db_session()
-    try:
-        repo = CommentRepository(db)
-        repo.delete(comment_id, data["user_id"])
-        return jsonify(status="success", data={})
-    finally:
-        db.close()
+    ok = CommentService(g.db).delete_comment(comment_id, data["user_id"])
+    if not ok:
+        return jsonify({"status": "error", "message": "권한이 없거나 댓글이 존재하지 않습니다."}), 403
+    return jsonify({"status": "success", "data": {}})
 
-# 댓글 좋아요
+
 @comment_bp.route("/<int:comment_id>/like", methods=["POST"])
 def like_comment(comment_id):
     data = request.json
-    db = get_db_session()
-    try:
-        repo = CommentRepository(db)
-        result = repo.like(comment_id, data["user_id"])
-        return jsonify(status="success", data=result)
-    finally:
-        db.close()
+    result = CommentService(g.db).like_comment(comment_id, data["user_id"])
+    if result is None:
+        return jsonify({"status": "error", "message": "댓글이 존재하지 않거나 이미 좋아요한 상태입니다."}), 400
+    return jsonify({"status": "success", "data": result})
 
-# 댓글 좋아요 취소
+
 @comment_bp.route("/<int:comment_id>/like", methods=["DELETE"])
 def unlike_comment(comment_id):
     data = request.json
-    db = get_db_session()
-    try:
-        repo = CommentRepository(db)
-        result = repo.unlike(comment_id, data["user_id"])
-        return jsonify(status="success", data=result)
-    finally:
-        db.close()
+    result = CommentService(g.db).unlike_comment(comment_id, data["user_id"])
+    if result is None:
+        return jsonify({"status": "error", "message": "댓글이 존재하지 않거나 이미 좋아요를 취소한 상태입니다."}), 400
+    return jsonify({"status": "success", "data": result})

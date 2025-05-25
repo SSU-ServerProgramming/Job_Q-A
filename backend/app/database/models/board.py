@@ -27,3 +27,13 @@ class Board(Base, TimestampMixin):
     author:   Mapped["User"]     = relationship("User", back_populates="boards")
     category: Mapped["Category"] = relationship("Category", back_populates="boards")
     comments: Mapped[List["Comment"]] = relationship("Comment", back_populates="board")
+
+    def to_dict_mypage(self) -> dict:
+        return {
+            "board_id": self.id,
+            "category_name": self.category.name if self.category else None,
+            "comment_count": self.num_comment,
+            "date": (self.updated_at or self.created_at).strftime("%Y-%m-%d %H:%M:%S"),
+            "like": self.num_like,
+            "title": self.title
+    }
