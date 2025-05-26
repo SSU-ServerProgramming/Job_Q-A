@@ -5,3 +5,4 @@ sqlalchemy
 cryptography
 bcrypt
 python-dotenv
+PyJWT==2.8.0

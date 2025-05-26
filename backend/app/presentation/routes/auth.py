@@ -2,6 +2,7 @@ from flask import Blueprint, request, g
 
 from app.application.services.auth import AuthService
 from app.presentation.response import RestResponse, HttpResponseAdapter
+from app.presentation.jwt import verify_token, create_access_token
 
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
@@ -46,6 +47,32 @@ def login():
     except ValueError as e:
         response = RestResponse.error(str(e))
         return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
+
+    except Exception as e:
+        response = RestResponse.error(str(e))
+        return HttpResponseAdapter.from_rest(response, http_status=500).to_flask_response()
+
+@auth_bp.route("/refresh", methods=["POST"])
+def refresh():
+    try:
+        auth_header = request.headers.get('Authorization')
+        if not auth_header or not auth_header.startswith('Bearer '):
+            response = RestResponse.error("Bearer 토큰이 필요합니다.")
+            return HttpResponseAdapter.from_rest(response, http_status=401).to_flask_response()
+
+        refresh_token = auth_header.split(' ')[1]
+        payload = verify_token(refresh_token)
+        if payload['type'] != 'refresh':
+            response = RestResponse.error("유효하지 않은 리프레시 토큰입니다.")
+            return HttpResponseAdapter.from_rest(response, http_status=401).to_flask_response()
+
+        new_access_token = create_access_token(payload['user_id'])
+        response = RestResponse.success(data={'access_token': new_access_token})
+        return HttpResponseAdapter.from_rest(response).to_flask_response()
+
+    except ValueError as e:
+        response = RestResponse.error(str(e))
+        return HttpResponseAdapter.from_rest(response, http_status=401).to_flask_response()
 
     except Exception as e:
         response = RestResponse.error(str(e))
