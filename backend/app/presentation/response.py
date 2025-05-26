@@ -27,7 +27,11 @@ class RestResponse:
 
     @classmethod
     def error(cls, message: str, errors: dict[str, str] | None = None):
-        return cls(status="error", message=message, errors=errors)
+        return cls(
+            status="error",
+            data={"message": message} if message else None,
+            errors=errors
+        )
     
 
 class HttpResponseAdapter:
@@ -40,8 +44,6 @@ class HttpResponseAdapter:
         body: dict[str, Any] = {"status": response.status}
         if response.data is not None:
             body["data"] = response.data
-        if response.message is not None:
-            body["message"] = response.message
         if response.errors:
             body["errors"] = response.errors
         if response.meta:
