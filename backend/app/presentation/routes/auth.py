@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, g
+from flask import Blueprint, request, g
 
 from app.application.services.auth import AuthService
 from app.presentation.response import RestResponse, HttpResponseAdapter
