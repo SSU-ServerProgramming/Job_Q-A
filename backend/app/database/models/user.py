@@ -10,7 +10,7 @@ class User(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     email: Mapped[str] = mapped_column(String(45), nullable=False, unique=True)
-    name: Mapped[str] = mapped_column(String(45), nullable=False)
+    nickname: Mapped[str] = mapped_column(String(45), nullable=False)
     password: Mapped[str] = mapped_column(String(200), nullable=False)
     company_id: Mapped[int] = mapped_column(Integer,
         ForeignKey("companies.id",ondelete="CASCADE", onupdate="CASCADE"),

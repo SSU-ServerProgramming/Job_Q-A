@@ -6,4 +6,4 @@ from .base import BaseService
 class UserService(BaseService):
     def get_all_users(self):
         repo = UserRepository(self.session)
-        return repo.get_all_user()
+        return repo.get_all_users()

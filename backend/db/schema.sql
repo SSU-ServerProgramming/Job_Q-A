@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS companies (
 CREATE TABLE IF NOT EXISTS users (
   id             INT NOT NULL AUTO_INCREMENT,
   email          VARCHAR(45) NOT NULL,
-  name           VARCHAR(45) NOT NULL,
+  nickname       VARCHAR(45) NOT NULL,
   password       VARCHAR(200) NOT NULL,
   company_id     INT NOT NULL,
   PRIMARY KEY (id),

@@ -39,7 +39,7 @@ class UserRepository(BaseRepository):
             self.session.delete(user)
             self.session.commit()
 
-    def get_all_user(self, skip: int = 0, limit: int = 100) -> list[User]:
+    def get_all_users(self, skip: int = 0, limit: int = 100) -> list[User]:
         """모든 사용자 정보를 조회합니다 (페이징)."""
         return self.session.query(User).offset(skip).limit(limit).all()
     
