@@ -2,6 +2,7 @@ from app.persistence.repositories.user import UserRepository
 from app.database.models.user import User
 from .base import BaseService
 import re
+import bcrypt
 
 
 class AuthService(BaseService):
@@ -30,4 +31,20 @@ class AuthService(BaseService):
 
     def _is_valid_email(self, email: str) -> bool:
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        return bool(re.match(pattern, email))
+        return bool(re.match(pattern, email))  
+      
+    def login(self, data: dict):
+        repo = UserRepository(self.session)
+        user = repo.get_by_email(data['email'])
+        if not user:
+            raise ValueError("존재하지 않는 이메일입니다.")
+        
+        if not bcrypt.checkpw(data['password'].encode('utf-8'), user.password.encode('utf-8')):
+            raise ValueError("비밀번호가 일치하지 않습니다.")
+            
+        return {
+            'id': user.id,
+            'email': user.email,
+            'nickname': user.nickname,
+            'company_id': user.company_id
+        }

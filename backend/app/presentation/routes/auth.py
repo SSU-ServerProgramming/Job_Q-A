@@ -25,3 +25,28 @@ def register():
     except Exception as e:
         response = RestResponse.error(str(e))
         return HttpResponseAdapter.from_rest(response, http_status=500).to_flask_response()
+
+@auth_bp.route("/login", methods=["POST"])
+def login():
+    try:
+        data = request.get_json()
+        
+        if 'email' not in data:
+            response = RestResponse.error("이메일이 필요합니다.")
+            return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
+        
+        if 'password' not in data:
+            response = RestResponse.error("비밀번호가 필요합니다.")
+            return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
+
+        result = AuthService(g.db).login(data)
+        response = RestResponse.success(data=result)
+        return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
+
+    except ValueError as e:
+        response = RestResponse.error(str(e))
+        return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
+
+    except Exception as e:
+        response = RestResponse.error(str(e))
+        return HttpResponseAdapter.from_rest(response, http_status=500).to_flask_response()
