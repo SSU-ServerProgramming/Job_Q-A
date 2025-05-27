@@ -41,7 +41,7 @@ cd ./Job_Q-A
     ```
 
 ### 5. Docker Container Build & Run
-> 자세한 사항은 [Makefile](https://github.com/SSU-ServerProgramming/Job_Q-A/backend/Makefile)을 확인하시기 바랍니다.
+> 자세한 사항은 [Makefile](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/backend/Makefile)을 확인하시기 바랍니다.
 - **development server**
   - **make dev-build** : docker container 생성 및 실행
   - **make dev-up** : docker container 실행
