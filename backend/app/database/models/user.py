@@ -19,11 +19,6 @@ class User(Base):
     company: Mapped["Company"] = relationship("Company", back_populates="users")
     boards: Mapped[List["Board"]] = relationship("Board", back_populates="author")
     comments: Mapped[List["Comment"]] = relationship("Comment", back_populates="author")
-
-    def to_dict_mypage(self) -> dict:
-        return {
-            "user_id": self.id,
-            "email": self.email,
-            "nickname": self.name,
-            "company_name": self.company.name if self.company else None
-    }
+    liked_boards: Mapped[List["BoardLikes"]] = relationship(
+        "BoardLikes", back_populates="user", cascade="all, delete-orphan"
+    )

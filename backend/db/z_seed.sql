@@ -19,7 +19,8 @@ VALUES
 
 INSERT INTO boards (user_id, title, category_id, content)
 VALUES
-    (1, '제목', 1, '제목');
+    (1, '제목', 1, '내용');
+
 
 INSERT INTO comments (user_id, board_id, content, parent_comment_id)
 VALUES 
