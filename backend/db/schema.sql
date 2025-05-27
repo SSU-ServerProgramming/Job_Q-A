@@ -95,3 +95,25 @@ CREATE TABLE IF NOT EXISTS comments (
     ON UPDATE CASCADE
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4;
+
+
+-- board_likes table
+CREATE TABLE IF NOT EXISTS board_likes (
+  user_id   INT NOT NULL,
+  board_id  INT NOT NULL,
+
+  PRIMARY KEY (user_id, board_id),
+  KEY idx_board_likes_user_id (user_id),
+  KEY idx_board_likes_board_id (board_id),
+
+  CONSTRAINT fk_board_likes_user FOREIGN KEY (user_id)
+    REFERENCES users (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+
+  CONSTRAINT fk_board_likes_board FOREIGN KEY (board_id)
+    REFERENCES boards (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4;
