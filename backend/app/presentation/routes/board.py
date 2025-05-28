@@ -24,7 +24,7 @@ def get_all_board():
     if sort == 'num_likes':
         boards = BoardService(g.db).get_by_num_like()
     else:
-        boards = BoardService(g.db).get_all_board()
+        boards = BoardService(g.db).get_all_boards()
     response_data = [board_to_response_dict(b) for b in boards]
     response = RestResponse.success(data=response_data)
     return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
