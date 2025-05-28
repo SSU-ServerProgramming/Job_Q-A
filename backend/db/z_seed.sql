@@ -5,7 +5,7 @@ VALUES
     ('Kakao'),
     ('Line');
 
-INSERT INTO users (name, email, password, company_id)
+INSERT INTO users (nickname, email, password, company_id)
 VALUES  
     ('ssumisfree', 'ssumisfree@example.com', 'password1', 1),
     ('woojin', 'woojinwork16@gmail.com', 'password2', 2),

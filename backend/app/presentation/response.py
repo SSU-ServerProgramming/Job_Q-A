@@ -40,8 +40,10 @@ class HttpResponseAdapter:
         body: dict[str, Any] = {"status": response.status}
         if response.data is not None:
             body["data"] = response.data
+
         if response.message is not None:
             body["message"] = response.message
+
         if response.errors:
             body["errors"] = response.errors
         if response.meta:
