@@ -31,5 +31,6 @@ def create_app() -> Flask:
     app.teardown_request(close_session)
 
     routes.register(app)
+    routes.register_error_handlers(app)
 
     return app
