@@ -2,6 +2,7 @@ from flask import Blueprint, request, g
 
 from app.presentation.response import HttpResponseAdapter, HttpResponse, RestResponse
 from app.application.services.board import BoardService
+from app.presentation.middleware.jwt_middleware import token_required
 
 board_bp = Blueprint("board", __name__, url_prefix="/board")
 
@@ -45,12 +46,13 @@ def get_by_board_id(board_id):
 
 
 @board_bp.route("/", methods=["POST"])
+@token_required
 def create_board():
     data = request.get_json()
     title = data.get("title")
     content = data.get("content")
     category_id = data.get("category_id")
-    user_id = data.get("user_id")
+    user_id = request.user['user_id']  # 토큰에서 user_id 추출
 
     board = BoardService(g.db).create_board(user_id=user_id, title=title, content=content, category_id=category_id)
     response_data = board_to_response_dict(board)
@@ -59,12 +61,13 @@ def create_board():
 
 
 @board_bp.route("/<int:board_id>", methods=["PUT"])
+@token_required
 def update_board(board_id):
     data = request.get_json()
     title = data.get("title")
     content = data.get("content")
     category_id = data.get("category_id")
-    user_id = data.get("user_id")
+    user_id = request.user['user_id']  # 토큰에서 user_id 추출
 
     board = BoardService(g.db).update_board(board_id=board_id, user_id=user_id, title=title, content=content, category_id=category_id)
     response_data = board_to_response_dict(board)
@@ -73,21 +76,25 @@ def update_board(board_id):
 
 
 @board_bp.route("/<int:board_id>", methods=["DELETE"])
+@token_required
 def delete_board(board_id):
-    BoardService(g.db).delete_board(board_id=board_id)
+    user_id = request.user['user_id']  # 토큰에서 user_id 추출
+    BoardService(g.db).delete_board(board_id=board_id, user_id=user_id)
     response = RestResponse.success()
     return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
 
 @board_bp.route("/<int:board_id>/like", methods=["POST"])
+@token_required
 def add_like(board_id):
-    user_id = request.get_json().get("user_id")
+    user_id = request.user['user_id']  # 토큰에서 user_id 추출
     BoardService(g.db).add_like(user_id=user_id, board_id=board_id)
     response = RestResponse.success()
     return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
 
 @board_bp.route("/<int:board_id>/like", methods=["DELETE"])
+@token_required
 def delete_like(board_id):
-    user_id = request.get_json().get("user_id")
+    user_id = request.user['user_id']  # 토큰에서 user_id 추출
     BoardService(g.db).delete_like(user_id=user_id, board_id=board_id)
     response = RestResponse.success()
     return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
