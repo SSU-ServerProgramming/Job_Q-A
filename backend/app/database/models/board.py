@@ -27,3 +27,6 @@ class Board(Base, TimestampMixin):
     author:   Mapped["User"]     = relationship("User", back_populates="boards")
     category: Mapped["Category"] = relationship("Category", back_populates="boards")
     comments: Mapped[List["Comment"]] = relationship("Comment", back_populates="board")
+    likes: Mapped[List["BoardLikes"]] = relationship(
+        "BoardLikes", back_populates="board", cascade="all, delete-orphan"
+    )

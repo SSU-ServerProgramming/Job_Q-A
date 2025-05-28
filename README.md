@@ -30,27 +30,23 @@ backend/
 │   ├── __init__.py
 │   ├── presentation/           # 1. Presentation
 │   │   ├── __init__.py
+│   │   ├── jwt.py
+│   │   ├── response.py
 │   │   └── routes/
-│   │       └── user_route.py
+│   │
 │   ├── application/            # 2. Application
 │   │   ├── __init__.py
-│   │   ├── dto/
 │   │   └── services/
 │   │       └── user_service.py
+│   │
 │   ├── persistence/            # 3. Persistence
 │   │   ├── __init__.py
 │   │   └── repositories/
-│   │       └── user_repository.py
+│   │
 │   ├── database/               # 4. Database
 │   │   ├── __init__.py 
 │   │   ├── session.py 
 │   │   └── models/
-|   |       ├── base.py
-|   |       ├── board.py
-|   |       ├── category.py
-|   |       ├── comment.py
-|   |       ├── company.py
-│   │       └── user.py
 │   └── config.py
 ├── requirements.txt
 └── README.md

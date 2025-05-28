@@ -27,8 +27,6 @@ cd ./Job_Q-A
 2. .env 파일 수정
     ```
     // .env.backend
-    FLASK_APP=__init__.py
-    FLASK_DEBUG=1
     DB_HOST=db
     DB_NAME=testdb
     DB_USER=EDIT_HERE // 수정(.env.db/MYSQL_USER과 같아야함)
@@ -43,11 +41,13 @@ cd ./Job_Q-A
     ```
 
 ### 5. Docker Container Build & Run
-- **docker compose up --build** : 처음 실행할때, requirements.txt, .env등의 파일이 변경되었을때(docker compose down도 같이)
-- **docker compose up** : 새로 빌드하지 않고, 실행할때
+> 자세한 사항은 [Makefile](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/backend/Makefile)을 확인하시기 바랍니다.
+- **development server**
+  - **make dev-build** : docker container 생성 및 실행
+  - **make dev-up** : docker container 실행
+  - **make dev-down** : docker container 삭제(Volume은 삭제되지 않음.)
 
-
-### 6. Result
-- 웹 브라우저에서 **localhost:8000**에 접속해 결과가 나오는지 확인!
-- **localhost:8000** : Docker Container Test 문구가 나옴.
-- **localhost:8000/users** : db에 있는 더미데이터가 나옴
+- **production server**
+  - **make prod-build** : docker container 생성 및 실행
+  - **make prod-up** : docker container 실행
+  - **make prod-down** : docker container 삭제(Volume은 삭제되지 않음.)
