@@ -8,10 +8,10 @@ from app.database.models import Board
 
 
 class BoardService(BaseService):
-    def get_all_board(self, skip: int = 0, limit: int = 100):
+    def get_all_boards(self, skip: int = 0, limit: int = 100):
         """모든 게시물을 반환합니다.(페이징)"""
         repo = BoardRepository(self.session)
-        return repo.get_all_board(skip=skip, limit=limit)
+        return repo.get_all_boards(skip=skip, limit=limit)
     
     def get_by_category_id(self, category_id, skip:int = 0, limit:int = 100):
         """카테고리별 모든 게시물을 반환합니다."""
