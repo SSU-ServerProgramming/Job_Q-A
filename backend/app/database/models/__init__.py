@@ -5,4 +5,4 @@ from .category import Category
 from .board import Board
 from .comment import Comment
 
-__all__ = [Base, TimestampMixin, User, Company, Category, Board, Comment]
+__all__ = [User, Company, Category, Board, Comment]
