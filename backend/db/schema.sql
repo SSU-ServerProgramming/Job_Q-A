@@ -1,3 +1,4 @@
+SET NAMES utf8mb4;
 -- companies table
 CREATE TABLE IF NOT EXISTS companies (
   id       INT NOT NULL AUTO_INCREMENT,

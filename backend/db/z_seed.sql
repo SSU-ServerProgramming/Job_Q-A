@@ -1,4 +1,6 @@
-﻿INSERT INTO companies(name)
+﻿SET NAMES utf8mb4;
+
+INSERT INTO companies(name)
 VALUES
     ('취준'),
     ('Naver'),

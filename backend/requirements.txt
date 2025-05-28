@@ -1,7 +1,7 @@
 Flask>=3.1.1
 gunicorn
-PyMySQL
-sqlalchemy
+PyMySQL>=1.0.2
+sqlalchemy>=1.4.0
 cryptography
 bcrypt
 python-dotenv
