@@ -81,13 +81,13 @@ class BoardRepository(BaseRepository):
     def create(self, board: Board) -> Board:
         """새로운 게시글(Board)을 생성합니다."""
         self.session.add(board)
-        self.session.commit()
+        self.session.flush()
         return board
     
     def update(self, board: Board) -> Board:
         """기존 게시글을 업데이트 합니다."""
         self.session.merge(board)
-        self.session.commit()
+        self.session.flush()
         return board
     
     def delete(self, board_id: int) -> None:
@@ -95,4 +95,4 @@ class BoardRepository(BaseRepository):
         board = self.get_by_id(board_id)
         if board:
             self.session.delete(board)
-            self.session.commit()
+            self.session.flush()
