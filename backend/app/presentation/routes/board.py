@@ -67,8 +67,14 @@ def update_board(board_id):
     title = data.get("title")
     content = data.get("content")
     category_id = data.get("category_id")
-    user_id = request.user['user_id']  # 토큰에서 user_id 추출
-
+    user_id = request.user['user_id']
+    board = BoardService(g.db).get_by_board_id(board_id)
+    if not board:
+        response = RestResponse.error("게시글이 존재하지 않습니다.")
+        return HttpResponseAdapter.from_rest(response, http_status=404).to_flask_response()
+    if board.user_id != user_id:
+        response = RestResponse.error("본인 게시글만 수정할 수 있습니다.")
+        return HttpResponseAdapter.from_rest(response, http_status=403).to_flask_response()
     board = BoardService(g.db).update_board(board_id=board_id, user_id=user_id, title=title, content=content, category_id=category_id)
     response_data = board_to_response_dict(board)
     response = RestResponse.success(data=response_data)
@@ -78,8 +84,15 @@ def update_board(board_id):
 @board_bp.route("/<int:board_id>", methods=["DELETE"])
 @token_required
 def delete_board(board_id):
-    user_id = request.user['user_id']  # 토큰에서 user_id 추출
-    BoardService(g.db).delete_board(board_id=board_id, user_id=user_id)
+    user_id = request.user['user_id']
+    board = BoardService(g.db).get_by_board_id(board_id)
+    if not board:
+        response = RestResponse.error("게시글이 존재하지 않습니다.")
+        return HttpResponseAdapter.from_rest(response, http_status=404).to_flask_response()
+    if board.user_id != user_id:
+        response = RestResponse.error("본인 게시글만 삭제할 수 있습니다.")
+        return HttpResponseAdapter.from_rest(response, http_status=403).to_flask_response()
+    BoardService(g.db).delete_board(board_id=board_id)
     response = RestResponse.success()
     return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
 

@@ -9,10 +9,8 @@ mypage_bp = Blueprint("mypage", __name__, url_prefix="/mypage")
 @mypage_bp.route("/user/<int:user_id>", methods=["GET"])
 @token_required
 def get_user_info(user_id):
-    # 토큰의 user_id와 요청의 user_id가 일치하는지 확인
     if request.user['user_id'] != user_id:
         return jsonify({"status": "error", "message": "권한이 없습니다."}), 403
-        
     db = get_db_session()
     try:
         service = MypageService(db)
@@ -28,10 +26,8 @@ def get_user_info(user_id):
 @mypage_bp.route("/user/<int:user_id>/boards", methods=["GET"])
 @token_required
 def get_user_boards(user_id):
-    # 토큰의 user_id와 요청의 user_id가 일치하는지 확인
     if request.user['user_id'] != user_id:
         return jsonify({"status": "error", "message": "권한이 없습니다."}), 403
-        
     db = get_db_session()
     try:
         service = MypageService(db)
@@ -45,10 +41,8 @@ def get_user_boards(user_id):
 @mypage_bp.route("/user/<int:user_id>/comments", methods=["GET"])
 @token_required
 def get_user_comments(user_id):
-    # 토큰의 user_id와 요청의 user_id가 일치하는지 확인
     if request.user['user_id'] != user_id:
         return jsonify({"status": "error", "message": "권한이 없습니다."}), 403
-        
     db = get_db_session()
     try:
         service = MypageService(db)
