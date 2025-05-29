@@ -2,16 +2,20 @@
 from app.persistence.repositories.board import BoardRepository
 from app.persistence.repositories.board_likes import BoardLikesRepository
 
-from .base import BaseService
-
+from app.persistence.exceptions import PersistenceError
+from app.application.exceptions import *
 from app.database.models import Board
 
+from .base import BaseService
 
 class BoardService(BaseService):
-    def get_all_boards(self, skip: int = 0, limit: int = 100):
+    def get_all_boards(self, skip: int = 0, limit: int = 100) -> list[Board]:
         """모든 게시물을 반환합니다.(페이징)"""
-        repo = BoardRepository(self.session)
-        return repo.get_all_boards(skip=skip, limit=limit)
+        try:
+            repo = BoardRepository(self.session)
+            return repo.get_all_boards(skip=skip, limit=limit)
+        except PersistenceError as e:
+            raise ApplicationError
     
     def get_by_category_id(self, category_id, skip:int = 0, limit:int = 100):
         """카테고리별 모든 게시물을 반환합니다."""

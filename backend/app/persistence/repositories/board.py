@@ -1,7 +1,7 @@
 from sqlalchemy import or_
 
 from .base import BaseRepository
-from app.persistence.error import PersistenceError
+from backend.app.persistence.exceptions import PersistenceError
 from app.database.models.board import Board
 
 
