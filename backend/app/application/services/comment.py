@@ -1,4 +1,5 @@
 from app.persistence.repositories.comment import CommentRepository
+from app.persistence.repositories.board import BoardRepository
 from app.database.models.comment import Comment
 from .base import BaseService
 
@@ -18,7 +19,20 @@ class CommentService(BaseService):
             content=data["content"],
             parent_comment_id=data.get("parent_comment_id")
         )
-        return CommentRepository(self.session).create(comment)
+        created_comment = CommentRepository(self.session).create(comment)
+        
+        # 게시글의 댓글 수 증가
+        board_repo = BoardRepository(self.session)
+        board = board_repo.get_by_id(data["board_id"])
+        if board:
+            board.num_comment += 1
+            board_repo.update(board)
+        
+        return created_comment
+    
+    def get_comment_by_id(self, comment_id: int) -> Comment | None:
+        repo = CommentRepository(self.session)
+        return repo.get_by_id(comment_id)
     
     # 댓글 수정
     def update_comment(self, comment_id: int, data: dict) -> Comment | None:
@@ -35,6 +49,14 @@ class CommentService(BaseService):
         comment = repo.get_by_id(comment_id)
         if comment is None or comment.user_id != user_id:
             return False
+        
+        # 게시글의 댓글 수 감소
+        board_repo = BoardRepository(self.session)
+        board = board_repo.get_by_id(comment.board_id)
+        if board:
+            board.num_comment -= 1
+            board_repo.update(board)
+        
         repo.delete(comment)
         return True
     

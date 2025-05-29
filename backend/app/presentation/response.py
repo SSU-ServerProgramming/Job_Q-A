@@ -22,12 +22,12 @@ class RestResponse:
     meta: dict[str, Any] | None = None
 
     @classmethod
-    def success(cls, data: Any = None, meta: dict[str, Any] | None = None):
-        return cls(status="success", data=data, meta=meta)
+    def success(cls, data: Any = None, message: str = "요청이 성공적으로 처리되었습니다.", meta: dict[str, Any] | None = None):
+        return cls(status="success", data=data, message=message, meta=meta)
 
     @classmethod
-    def error(cls, message: str, errors: dict[str, str] | None = None):
-        return cls(status="error", message=message, errors=errors)
+    def error(cls, message: str, data: Any = None, errors: dict[str, str] | None = None):
+        return cls(status="error", data=data, message=message, errors=errors)
     
 
 class HttpResponseAdapter:
@@ -37,12 +37,11 @@ class HttpResponseAdapter:
         http_status: int = 200,
         headers: dict[str, str] | None = None
     ) -> HttpResponse:
-        body: dict[str, Any] = {"status": response.status}
-        if response.data is not None:
-            body["data"] = response.data
-
-        if response.message is not None:
-            body["message"] = response.message
+        body: dict[str, Any] = {
+            "status": response.status,
+            "data": response.data,
+            "message": response.message
+        }
 
         if response.errors:
             body["errors"] = response.errors

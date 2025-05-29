@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, g
+from flask import Blueprint, g
 
 from app.application.services.user import UserService
 from app.presentation.response import RestResponse, HttpResponseAdapter
@@ -19,5 +19,8 @@ def get_all_user():
             'password': user.password
         } for user in users
     ]
-    response = RestResponse.success(data=user_list)
-    return HttpResponseAdapter.from_rest(response).to_flask_response()
+    response = RestResponse.success(
+        data=user_list,
+        message="사용자 목록을 성공적으로 조회했습니다."
+    )
+    return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
