@@ -22,8 +22,9 @@ def get_user_info(user_id):
             response = RestResponse.error("사용자를 찾을 수 없습니다.", data=None)
             return HttpResponseAdapter.from_rest(response, http_status=404).to_flask_response()
         
+        user_dict = user.to_dict_mypage()
         response = RestResponse.success(
-            data=user.to_dict_mypage(),
+            data=user_dict,
             message="사용자 정보를 성공적으로 조회했습니다."
         )
         return HttpResponseAdapter.from_rest(response).to_flask_response()
