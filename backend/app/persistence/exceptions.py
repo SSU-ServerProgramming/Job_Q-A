@@ -19,5 +19,7 @@ class PersistenceError(Exception):
             try:
                 return fn(*args, **kwargs)
             except SQLAlchemyError as e:
-                raise PersistenceError(f"Error in {fn.__name__}", e) from e
+                raise PersistenceError(f"SQLAlchemyError in {fn.__name__}", e) from e
+            except Exception as e:
+                raise PersistenceError(f"Other Error in {fn.__name__}") from e
         return wrapper

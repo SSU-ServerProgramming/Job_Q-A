@@ -1,17 +1,17 @@
 from sqlalchemy import or_
 
 from .base import BaseRepository
-from backend.app.persistence.exceptions import PersistenceError
+from app.persistence.exceptions import PersistenceError
 from app.database.models.board import Board
 
 
 class BoardRepository(BaseRepository):
-    @PermissionError.wrap
+    @PersistenceError.wrap
     def get_by_id(self, board_id: int) -> Board | None:
         """ID로 게시글을 조회합니다."""
         return self.session.query(Board).filter(Board.id == board_id).first()
     
-    @PermissionError.wrap
+    @PersistenceError.wrap
     def get_by_user_id(self, user_id: int) -> list[Board]:
         """User ID로 게시글을 최신 생성순으로 조회합니다."""
         result = (
@@ -22,7 +22,7 @@ class BoardRepository(BaseRepository):
         )
         return result
     
-    @PermissionError.wrap
+    @PersistenceError.wrap
     def get_by_category_id(self, category_id: int, skip: int = 0, limit: int = 100) -> list[Board]:
         """Category ID로 게시글을 최신 생성순으로 조회합니다.(페이징)"""
         result = (
@@ -33,7 +33,7 @@ class BoardRepository(BaseRepository):
         )
         return result
     
-    @PermissionError.wrap
+    @PersistenceError.wrap
     def get_by_keyword(self, keyword: str, skip: int = 0, limit: int = 100) -> list[Board]:
         """제목이나 본문에 키워드가 포함된 게시글을 최신 생성순으로 조회합니다.(페이징)"""
         result = (
@@ -49,7 +49,7 @@ class BoardRepository(BaseRepository):
         )
         return result
 
-    @PermissionError.wrap
+    @PersistenceError.wrap
     def get_by_num_like(self, skip: int = 0, limit: int = 100) -> list[Board]:
         """좋아요 개수가 많은 순으로 정렬되어 게시글을 조회합니다(페이징)"""
         result = (
@@ -61,7 +61,7 @@ class BoardRepository(BaseRepository):
         )
         return result
     
-    @PermissionError.wrap
+    @PersistenceError.wrap
     def get_by_num_comment(self, skip: int = 0, limit: int = 100) -> list[Board]:
         """좋아요 개수가 많은 순으로 정렬되어 게시글을 조회합니다(페이징)"""
         result = (
@@ -73,7 +73,7 @@ class BoardRepository(BaseRepository):
         )
         return result
     
-    @PermissionError.wrap
+    @PersistenceError.wrap
     def get_all_boards(self, skip: int = 0, limit: int = 100) -> list[Board]:
         """최근 생성된 순으로 게시글을 조회합니다.(페이징)"""
         result = (
@@ -85,21 +85,21 @@ class BoardRepository(BaseRepository):
         )
         return result
     
-    @PermissionError.wrap
+    @PersistenceError.wrap
     def create(self, board: Board) -> Board:
         """새로운 게시글(Board)을 생성합니다."""
         self.session.add(board)
         self.session.flush()
         return board
     
-    @PermissionError.wrap
+    @PersistenceError.wrap
     def update(self, board: Board) -> Board:
         """기존 게시글을 업데이트 합니다."""
         self.session.merge(board)
         self.session.flush()
         return board
 
-    @PermissionError.wrap    
+    @PersistenceError.wrap    
     def delete(self, board_id: int) -> None:
         """게시글을 삭제합니다."""
         board = self.get_by_id(board_id)
