@@ -1,5 +1,3 @@
-from jwt import JWTError
-
 # Application 전역 에러
 class ApplicationError(Exception):
     def __init__(self, exception:Exception | None = None):
@@ -7,17 +5,17 @@ class ApplicationError(Exception):
         self.super().__init__("Appliacation Error")
 
 # JWT
-class MissingdTokenError(JWTError):
+class MissingdTokenError(Exception):
     def __init__(self, exception):
         self.exception = exception
         super().__init__("Token Missing")
 
-class InvalidTokenError(JWTError):
+class InvalidTokenError(Exception):
     def __init__(self, exception):
         self.exception = exception
         super().__init__("Token Invalid")
 
-class ExpiredTokenError(JWTError):
+class ExpiredTokenError(Exception):
     def __init__(self, exception):
         self.exception = exception
         super().__init__("Token Expired")
