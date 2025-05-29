@@ -32,7 +32,8 @@ backend/
 │   │   ├── __init__.py
 │   │   ├── jwt.py
 │   │   ├── response.py
-│   │   └── routes/
+│   │   ├── routes/
+│   │   └── serializers/
 │   │
 │   ├── application/            # 2. Application
 │   │   ├── __init__.py

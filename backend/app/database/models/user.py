@@ -22,12 +22,3 @@ class User(Base):
     liked_boards: Mapped[List["BoardLikes"]] = relationship(
         "BoardLikes", back_populates="user", cascade="all, delete-orphan"
     )
-
-    def to_dict_mypage(self) -> dict:
-        """마이페이지에서 사용할 사용자 정보를 딕셔너리로 반환"""
-        return {
-            "user_id": self.id,
-            "email": self.email,
-            "nickname": self.nickname,
-            "company_name": self.company.name if self.company else None
-        }
