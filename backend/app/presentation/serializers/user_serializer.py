@@ -6,5 +6,5 @@ def serial_user_to_dict_mypage(user) -> dict:
         "user_id": user.id,
         "email": user.email,
         "nickname": user.nickname,
-        "company_name": user.company.name if user.company else None
+        "company_name": user.company_name
     }
