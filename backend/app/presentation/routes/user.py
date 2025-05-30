@@ -15,8 +15,7 @@ def get_all_user():
             'id': user.id,
             'email': user.email,
             'nickname': user.nickname,
-            'company_id': user.company_id,
-            'password': user.password
+            'company_name': user.company_name
         } for user in users
     ]
     response = RestResponse.success(
