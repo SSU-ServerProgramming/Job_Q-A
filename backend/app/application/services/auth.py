@@ -20,14 +20,14 @@ class AuthService(BaseService):
             email=data['email'],
             password=data['password'],
             nickname=data['nickname'],
-            company_id=data['company_id']
+            company_name=data['company_name']
         )
         created_user = repo.create(user)
         return {
             'id': created_user.id,
             'email': created_user.email,
             'nickname': created_user.nickname,
-            'company_id': created_user.company_id
+            'company_name': created_user.company_name
         }
 
     def _is_valid_email(self, email: str) -> bool:
@@ -51,7 +51,7 @@ class AuthService(BaseService):
             'id': user.id,
             'email': user.email,
             'nickname': user.nickname,
-            'company_id': user.company_id,
+            'company_name': user.company_name,
             'access_token': access_token,
             'refresh_token': refresh_token
         }

@@ -7,12 +7,12 @@ VALUES
     ('Kakao'),
     ('Line');
 
-INSERT INTO users (nickname, email, password, company_id)
+INSERT INTO users (nickname, email, password, company_name)
 VALUES  
-    ('ssumisfree', 'ssumisfree@example.com', 'password1', 1),
-    ('woojin', 'woojinwork16@gmail.com', 'password2', 2),
-    ('rest-point', 'rest-point@example.com', 'password3', 3),
-    ('kim_tae_young', 'kim_tae_young@example.com', 'password4', 4);
+    ('ssumisfree', 'ssumisfree@example.com', 'password1', "example"),
+    ('woojin', 'woojinwork16@gmail.com', 'password2', "example"),
+    ('rest-point', 'rest-point@example.com', 'password3', "example"),
+    ('kim_tae_young', 'kim_tae_young@example.com', 'password4', "example");
 
 INSERT INTO categories (name) 
 VALUES

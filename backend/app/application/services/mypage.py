@@ -8,10 +8,10 @@ class MypageService(BaseService):
     # 내 정보 조회
     def get_user_info(self, user_id: int):
         repo = UserRepository(self.session)
-        result = repo.get_by_user_id_with_company(user_id)
+        result = repo.get_by_id(user_id)
         if not result:
             return None
-        user, _ = result
+        user = result
         return user
 
     # 내가 쓴 게시글 목록 조회

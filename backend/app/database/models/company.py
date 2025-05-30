@@ -11,8 +11,8 @@ class Company(Base):
     name: Mapped[str] = mapped_column(String(45), nullable=False)
     domain: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
 
-    users:  Mapped[List["User"]]  = relationship(
-        "User",
-        back_populates="company",
-        cascade="all, delete-orphan"
-    )
+    # users:  Mapped[List["User"]]  = relationship(
+    #     "User",
+    #     back_populates="company",
+    #     cascade="all, delete-orphan"
+    # )
