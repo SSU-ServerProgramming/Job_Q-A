@@ -4,20 +4,9 @@ from app.presentation.response import HttpResponseAdapter, HttpResponse, RestRes
 from app.application.services.board import BoardService
 from app.presentation.middleware.jwt_middleware import token_required
 
-board_bp = Blueprint("board", __name__, url_prefix="/board")
+from app.presentation.serializers.board_serializer import serial_board_to_dict
 
-# 임시로 이곳에 구현해둠
-def board_to_response_dict(board):
-    return {
-        "board_id": board.id,
-        "category_name": board.category.name if board.category else None,
-        "comment_count": board.num_comment,
-        "content": board.content,
-        "date": board.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-        "like": board.num_like,
-        "title": board.title,
-        "writer": board.user_id,
-    }
+board_bp = Blueprint("board", __name__, url_prefix="/board")
 
 @board_bp.route("/", methods=["GET"])
 def get_all_board():
@@ -26,7 +15,7 @@ def get_all_board():
         boards = BoardService(g.db).get_by_num_like()
     else:
         boards = BoardService(g.db).get_all_boards()
-    response_data = [board_to_response_dict(b) for b in boards]
+    response_data = [serial_board_to_dict(b) for b in boards]
     response = RestResponse.success(
         data=response_data,
         message="게시글 목록을 성공적으로 조회했습니다."
@@ -36,7 +25,7 @@ def get_all_board():
 @board_bp.route("/category/<int:category_id>", methods=["GET"])
 def get_by_category_id(category_id):
     boards = BoardService(g.db).get_by_category_id(category_id)
-    reponse_data = [board_to_response_dict(b) for b in boards]
+    reponse_data = [serial_board_to_dict(b) for b in boards]
     response = RestResponse.success(
         data=reponse_data,
         message="카테고리별 게시글 목록을 성공적으로 조회했습니다."
@@ -46,7 +35,7 @@ def get_by_category_id(category_id):
 @board_bp.route("/detail/<int:board_id>", methods=["GET"])
 def get_by_board_id(board_id):
     board = BoardService(g.db).get_by_board_id(board_id=board_id)
-    response_data = board_to_response_dict(board)
+    response_data = serial_board_to_dict(board)
     response = RestResponse.success(
         data=response_data,
         message="게시글을 성공적으로 조회했습니다."
@@ -64,7 +53,7 @@ def create_board():
     user_id = request.user['user_id']  # 토큰에서 user_id 추출
 
     board = BoardService(g.db).create_board(user_id=user_id, title=title, content=content, category_id=category_id)
-    response_data = board_to_response_dict(board)
+    response_data = serial_board_to_dict(board)
     response = RestResponse.success(
         data=response_data,
         message="게시글이 성공적으로 작성되었습니다."
@@ -88,7 +77,7 @@ def update_board(board_id):
         response = RestResponse.error("본인 게시글만 수정할 수 있습니다.", data=None)
         return HttpResponseAdapter.from_rest(response, http_status=403).to_flask_response()
     board = BoardService(g.db).update_board(board_id=board_id, user_id=user_id, title=title, content=content, category_id=category_id)
-    response_data = board_to_response_dict(board)
+    response_data = serial_board_to_dict(board)
     response = RestResponse.success(
         data=response_data,
         message="게시글이 성공적으로 수정되었습니다."
@@ -135,4 +124,3 @@ def delete_like(board_id):
         message="게시글의 좋아요를 성공적으로 취소했습니다."
     )
     return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
-
