@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import jwt
 
 JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'your-secret-key')
-JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
+JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=30)
 JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
 
 def create_access_token(user_id: int) -> str:
