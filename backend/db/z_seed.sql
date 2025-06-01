@@ -10,8 +10,8 @@ VALUES
 INSERT INTO users (nickname, email, password, company_id)
 VALUES  
     ('ssumisfree', 'ssumisfree@example.com', 'password1', 1),
-    ('woojin', 'woojinwork16@gmail.com', 'password2', 1),
-    ('rest-point', 'rest-point@example.com', 'password3', NULL),
+    ('woojin', 'woojinwork16@example.com', 'password2', 1),
+    ('rest-point', 'rest-point@example.com', 'password3', 1),
     ('kim_tae_young', 'kim_tae_young@example.com', 'password4', 1);
 
 INSERT INTO categories (name) 
