@@ -27,13 +27,13 @@ class UserRepository(BaseRepository):
         user.password = hashed_password.decode('utf-8')
         
         self.session.add(user)
-        self.session.commit()
+        self.session.flush()
         return user
 
     def update(self, user: User) -> User:
         """기존 사용자 정보를 업데이트합니다."""
         self.session.merge(user)
-        self.session.commit()
+        self.session.flush()
         return user
 
     def delete(self, user_id: int) -> None:
@@ -41,7 +41,7 @@ class UserRepository(BaseRepository):
         user = self.get_by_id(user_id)
         if user:
             self.session.delete(user)
-            self.session.commit()
+            self.session.flush()
 
     def get_all_users(self, skip: int = 0, limit: int = 100) -> list[User]:
         """모든 사용자 정보를 조회합니다 (페이징)."""
