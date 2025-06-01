@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS comments (
     ON UPDATE CASCADE
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4;
+
 -- board_likes table
 CREATE TABLE IF NOT EXISTS board_likes (
   user_id   INT NOT NULL,
