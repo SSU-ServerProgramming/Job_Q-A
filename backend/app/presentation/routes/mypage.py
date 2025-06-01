@@ -16,8 +16,8 @@ def get_user_info():
     user_id = request.user['user_id']
 
     try:
-        user = MypageService(g.db).get_user_info(user_id)
-        data = serial_user_to_dict_mypage(user)
+        user_id, email, nickname, company_name = MypageService(g.db).get_user_info(user_id=user_id)
+        data = serial_user_to_dict_mypage(user_id, email, nickname, company_name)
         response = RestResponse.success(data=data, message="사용자 정보를 성공적으로 조회했습니다.")
         return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
     

@@ -1,6 +1,7 @@
 from app.persistence.repositories.user import UserRepository
 from app.persistence.repositories.board import BoardRepository
 from app.persistence.repositories.comment import CommentRepository
+from app.persistence.repositories.company import CompanyRepository
 from .base import BaseService
 
 
@@ -9,12 +10,14 @@ class MypageService(BaseService):
     def get_user_info(self, user_id: int):
         repo = UserRepository(self.session)
 
-        result = repo.get_by_id(user_id)
-        if result is None:
+        user = repo.get_by_id(user_id)
+        if user is None:
             raise ValueError("사용자가 존재하지 않습니다.")
-        user = result
+        
+        repo = CompanyRepository(self.session)
+        company = repo.get_by_id(user.company_id)
 
-        return user
+        return {user.id, user.email, user.nickname, company.name}
 
     # 내가 쓴 게시글 목록 조회
     def get_user_boards(self, user_id: int) -> list:

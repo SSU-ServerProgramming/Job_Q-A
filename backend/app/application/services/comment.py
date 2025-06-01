@@ -63,7 +63,7 @@ class CommentService(BaseService):
         except IntegrityError as e:
             self.session.rollback()
             # 조건 위배가 아니면 중복으로 판단
-            if "uix_user_comment" in str(e.orig):
+            if "pk_comment_likes" in str(e.orig):
                 raise ValueError("이미 좋아요한 댓글입니다.")
             else:
                 raise ValueError("좋아요 처리 중 오류가 발생했습니다.")

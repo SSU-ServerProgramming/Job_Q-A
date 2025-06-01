@@ -9,12 +9,18 @@ from app.persistence.repositories.company import CompanyRepository
 
 
 class AuthService(BaseService):
-    def register(self, email: str, password: str, nickname: str, company_id: int):
+    def register(self, email: str, password: str, nickname: str):
         if not self._is_valid_email(email):
             raise ValueError("유효하지 않은 이메일 형식입니다.")
 
         repo = UserRepository(self.session)
-        
+        company = CompanyRepository(self.session).get_by_domain(email.split("@")[-1])
+
+        if not company:
+            raise ValueError("등록되지 않은 회사 도메인입니다.")
+
+        company_id = company.id
+
         if repo.get_by_email(email):
             raise ValueError("이미 등록된 이메일입니다.")
 
