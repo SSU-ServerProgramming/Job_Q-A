@@ -9,27 +9,27 @@ from app.persistence.repositories.company import CompanyRepository
 
 
 class AuthService(BaseService):
-    def register(self, data: dict):
-        if not self._is_valid_email(data['email']):
+    def register(self, email: str, password: str, nickname: str, company_id: int):
+        if not self._is_valid_email(email):
             raise ValueError("유효하지 않은 이메일 형식입니다.")
 
         repo = UserRepository(self.session)
         
-        if repo.get_by_email(data['email']):
+        if repo.get_by_email(email):
             raise ValueError("이미 등록된 이메일입니다.")
 
         user = User(
-            email=data['email'],
-            password=data['password'],
-            nickname=data['nickname'],
-            company_name=data['company_name']
+            email=email,
+            password=password,
+            nickname=nickname,
+            company_id=company_id
         )
         created_user = repo.create(user)
         return {
             'id': created_user.id,
             'email': created_user.email,
             'nickname': created_user.nickname,
-            'company_name': created_user.company_name
+            'company_id': created_user.company_id
         }
 
     def _is_valid_email(self, email: str) -> bool:
@@ -53,7 +53,7 @@ class AuthService(BaseService):
             'id': user.id,
             'email': user.email,
             'nickname': user.nickname,
-            'company_name': user.company_name,
+            'company_id': user.company_id,
             'access_token': access_token,
             'refresh_token': refresh_token
         }

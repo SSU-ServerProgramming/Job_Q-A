@@ -12,11 +12,20 @@ auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 def register():
     try:
         data = request.get_json()
-        if not data:
+        email = data.get("email")
+        password = data.get("password")
+        nickname = data.get("nickname")
+        # 나중에 삭제 예정
+        company_id = data.get("company_id")
+
+        if not email or not password or not nickname or not company_id:
             response = RestResponse.error("요청 데이터가 필요합니다.", data=None)
             return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
 
-        result = AuthService(g.db).register(data)
+        # company_id -> company_name 변경 로직
+
+        
+        result = AuthService(g.db).register(email, password, nickname, company_id)
         response = RestResponse.success(data=result, message="회원가입이 성공적으로 완료되었습니다.")
         return HttpResponseAdapter.from_rest(response, http_status=201).to_flask_response()
 
