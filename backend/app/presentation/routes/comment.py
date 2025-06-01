@@ -92,15 +92,19 @@ def like_comment(comment_id):
 @comment_bp.route("/<int:comment_id>/like", methods=["DELETE"])
 @token_required
 def unlike_comment(comment_id):
-    user_id = request.user['user_id']  # 토큰에서 user_id 추출
-    result = CommentService(g.db).unlike_comment(comment_id, user_id)
+    try:
+        user_id = request.user['user_id']  # 토큰에서 user_id 추출
+        result = CommentService(g.db).unlike_comment(comment_id, user_id)
 
-    if result is None:
-        response = RestResponse.error("댓글이 존재하지 않거나 이미 좋아요를 취소한 상태입니다.", data=None)
+        if result is None:
+            response = RestResponse.error("댓글이 존재하지 않거나 이미 좋아요를 취소한 상태입니다.", data=None)
+            return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
+        
+        response = RestResponse.success(
+            data = serial_comment_to_dict(result),
+            message = "댓글의 좋아요를 성공적으로 취소했습니다."
+        )
+        return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
+    except ValueError as e:
+        response = RestResponse.error(str(e), data=None)
         return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
-    
-    response = RestResponse.success(
-        data = serial_comment_to_dict(result),
-        message = "댓글의 좋아요를 성공적으로 취소했습니다."
-    )
-    return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
