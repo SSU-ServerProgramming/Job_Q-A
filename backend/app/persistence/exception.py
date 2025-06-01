@@ -1,4 +1,4 @@
-# persistence/error.py
+# persistence/exception.py
 
 # Persistence에서 사용하는 에러 클래스를 정의합니다.
 # Persistence에서 직접 예외처리를 하지는 않으며, SQLAlchemy Exception을 Application layer로 곧바로 전달하지 않기 위함입니다.
