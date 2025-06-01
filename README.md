@@ -28,26 +28,26 @@ backend/
 ├── manage.py
 ├── app/
 │   ├── __init__.py
-│   ├── presentation/           # 1. Presentation
+│   ├── presentation/           # 1. Presentation(Flask route)
 │   │   ├── __init__.py
 │   │   ├── jwt.py
 │   │   ├── response.py
 │   │   ├── routes/
 │   │   └── serializers/
 │   │
-│   ├── application/            # 2. Application
+│   ├── application/            # 2. Application(Service)
 │   │   ├── __init__.py
 │   │   └── services/
-│   │       └── user_service.py
 │   │
-│   ├── persistence/            # 3. Persistence
+│   ├── persistence/            # 3. Persistence(Repository)
 │   │   ├── __init__.py
 │   │   └── repositories/
 │   │
-│   ├── database/               # 4. Database
+│   ├── database/               # 4. Database(ORM)
 │   │   ├── __init__.py 
 │   │   ├── session.py 
 │   │   └── models/
+│   │
 │   └── config.py
 ├── requirements.txt
 └── README.md
