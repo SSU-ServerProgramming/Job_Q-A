@@ -19,7 +19,7 @@ class BoardLikesRepository(BaseRepository):
         """좋아요를 추가합니다."""
         like = BoardLikes(user_id=user_id, board_id=board_id)
         self.session.add(like)
-        self.session.commit()
+        self.session.flush()
         return like
     
     def delete_like(self, user_id: int, board_id: int) -> None:
@@ -27,4 +27,4 @@ class BoardLikesRepository(BaseRepository):
         like = self.get_by_user_board_id(user_id, board_id)
         if like is not None:
             self.session.delete(like)
-        self.session.commit()
+        self.session.flush()
