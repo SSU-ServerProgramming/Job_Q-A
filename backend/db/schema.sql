@@ -15,9 +15,9 @@ CREATE TABLE IF NOT EXISTS users (
   email          VARCHAR(45) NOT NULL,
   nickname       VARCHAR(45) NOT NULL,
   password       VARCHAR(200) NOT NULL,
-  company_id     INT NOT NULL,
+  company_id   INT NOT NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY uq_users_email           (email),
+  UNIQUE KEY uq_users_email           (email)
   KEY        idx_users_company_id     (company_id),
   CONSTRAINT fk_users_company_id
     FOREIGN KEY (company_id)
