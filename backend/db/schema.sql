@@ -119,26 +119,21 @@ CREATE TABLE IF NOT EXISTS board_likes (
 
 -- comment_likes table
 CREATE TABLE IF NOT EXISTS comment_likes (
-  id           INT NOT NULL AUTO_INCREMENT,
-  user_id      INT NOT NULL,
-  comment_id   INT NOT NULL,
-  created_at   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id),
-  UNIQUE KEY uq_comment_likes_user_comment (user_id, comment_id),
-  KEY         idx_comment_likes_user_id    (user_id),
-  KEY         idx_comment_likes_comment_id (comment_id),
-  CONSTRAINT fk_comment_likes_user
-    FOREIGN KEY (user_id)
+  user_id     INT NOT NULL,
+  comment_id  INT NOT NULL,
+
+  PRIMARY KEY (user_id, comment_id),
+  KEY idx_comment_likes_user_id (user_id),
+  KEY idx_comment_likes_comment_id (comment_id),
+
+  CONSTRAINT fk_comment_likes_user FOREIGN KEY (user_id)
     REFERENCES users (id)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT fk_comment_likes_comment
-    FOREIGN KEY (comment_id)
+
+  CONSTRAINT fk_comment_likes_comment FOREIGN KEY (comment_id)
     REFERENCES comments (id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 ) ENGINE=InnoDB
-  DEFAULT CHARSET=utf8mb4
-  COLLATE=utf8mb4_0900_ai_ci;
-
-
+  DEFAULT CHARSET=utf8mb4;
