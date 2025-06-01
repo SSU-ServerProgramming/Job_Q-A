@@ -15,9 +15,15 @@ CREATE TABLE IF NOT EXISTS users (
   email          VARCHAR(45) NOT NULL,
   nickname       VARCHAR(45) NOT NULL,
   password       VARCHAR(200) NOT NULL,
-  company_name   VARCHAR(45) NULL,
+  company_id     INT NOT NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY uq_users_email           (email)
+  UNIQUE KEY uq_users_email           (email),
+  KEY        idx_users_company_id     (company_id),
+  CONSTRAINT fk_users_company_id
+    FOREIGN KEY (company_id)
+    REFERENCES companies (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4;
 
@@ -113,23 +119,26 @@ CREATE TABLE IF NOT EXISTS board_likes (
 
 -- comment_likes table
 CREATE TABLE IF NOT EXISTS comment_likes (
-  user_id     INT NOT NULL,
-  comment_id  INT NOT NULL,
-
-  PRIMARY KEY (user_id, comment_id),
-  KEY idx_comment_likes_user_id (user_id),
-  KEY idx_comment_likes_comment_id (comment_id),
-
-  CONSTRAINT fk_comment_likes_user FOREIGN KEY (user_id)
+  id           INT NOT NULL AUTO_INCREMENT,
+  user_id      INT NOT NULL,
+  comment_id   INT NOT NULL,
+  created_at   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_comment_likes_user_comment (user_id, comment_id),
+  KEY         idx_comment_likes_user_id    (user_id),
+  KEY         idx_comment_likes_comment_id (comment_id),
+  CONSTRAINT fk_comment_likes_user
+    FOREIGN KEY (user_id)
     REFERENCES users (id)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-
-  CONSTRAINT fk_comment_likes_comment FOREIGN KEY (comment_id)
+  CONSTRAINT fk_comment_likes_comment
+    FOREIGN KEY (comment_id)
     REFERENCES comments (id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 ) ENGINE=InnoDB
-  DEFAULT CHARSET=utf8mb4;
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_0900_ai_ci;
 
 
