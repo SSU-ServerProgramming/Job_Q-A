@@ -12,7 +12,7 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(45), nullable=False, unique=True)
     nickname: Mapped[str] = mapped_column(String(45), nullable=False)
     password: Mapped[str] = mapped_column(String(200), nullable=False)
-    company_name: Mapped[str] = mapped_column(String(45), nullable=False)
+    company_name: Mapped[str] = mapped_column(String(45), nullable=True)
     
     # company: Mapped["Company"] = relationship("Company", back_populates="users")
     boards: Mapped[List["Board"]] = relationship("Board", back_populates="author")

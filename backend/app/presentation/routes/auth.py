@@ -4,6 +4,7 @@ from app.application.services.auth import AuthService
 from app.presentation.response import RestResponse, HttpResponseAdapter
 from app.presentation.jwt import verify_token, create_access_token
 
+from app.presentation.serializers.user_serializer import serial_user_to_dict_company
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -80,3 +81,21 @@ def refresh():
     except Exception as e:
         response = RestResponse.error(str(e), data=None)
         return HttpResponseAdapter.from_rest(response, http_status=500).to_flask_response()
+    
+@auth_bp.route("/company", methods=["POST"])
+def link_company():
+    data = request.get_json()
+    user_id = data.get("user_id")
+    company_email = data.get("company_email")
+
+    result = AuthService(g.db).link_company(user_id, company_email)
+
+    if result is None:
+        response = RestResponse.error("회사 연동에 실패했습니다.", data=None)
+        return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
+
+    response = RestResponse.success(
+        data=serial_user_to_dict_company(result),
+        message="회사 정보가 성공적으로 등록되었습니다."
+    )
+    return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()

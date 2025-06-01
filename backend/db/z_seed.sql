@@ -1,17 +1,17 @@
 ﻿SET NAMES utf8mb4;
 
-INSERT INTO companies(name)
+INSERT INTO companies(name, domain)
 VALUES
-    ('취준'),
-    ('Naver'),
-    ('Kakao'),
-    ('Line');
+    ('example', 'example.com'),
+    ('Naver', 'navercorp.com'),
+    ('Kakao', 'kakaocorp.com'),
+    ('Line', 'lineworks.com');
 
 INSERT INTO users (nickname, email, password, company_name)
 VALUES  
     ('ssumisfree', 'ssumisfree@example.com', 'password1', "example"),
     ('woojin', 'woojinwork16@gmail.com', 'password2', "example"),
-    ('rest-point', 'rest-point@example.com', 'password3', "example"),
+    ('rest-point', 'rest-point@example.com', 'password3', NULL),
     ('kim_tae_young', 'kim_tae_young@example.com', 'password4', "example");
 
 INSERT INTO categories (name) 

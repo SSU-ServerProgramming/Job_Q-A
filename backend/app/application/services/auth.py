@@ -5,6 +5,8 @@ from .base import BaseService
 import re
 import bcrypt
 
+from app.persistence.repositories.company import CompanyRepository
+
 
 class AuthService(BaseService):
     def register(self, data: dict):
@@ -55,3 +57,18 @@ class AuthService(BaseService):
             'access_token': access_token,
             'refresh_token': refresh_token
         }
+    
+    def link_company(self, user_id: int, company_email: str) -> User | None:
+        domain = company_email.split("@")[-1]
+        company = CompanyRepository(self.session).get_by_domain(domain)
+        if not company:
+            raise ValueError("등록되지 않은 회사 도메인입니다.")
+
+        user = UserRepository(self.session).get_by_id(user_id)
+        if not user:
+            raise ValueError("사용자를 찾을 수 없습니다.")
+
+        user.company_name = company.name
+        self.session.commit()
+        return user
+    
