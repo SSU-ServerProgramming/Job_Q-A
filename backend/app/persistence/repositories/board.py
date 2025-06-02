@@ -1,9 +1,9 @@
 from sqlalchemy import or_
 
-from app.persistence.exception import PersistenceError
 from .base import BaseRepository
 from app.database.models.board import Board
-from app.database.models.board_likes import BoardLikes
+
+from app.persistence.exception import PersistenceError
 
 
 class BoardRepository(BaseRepository):

@@ -26,7 +26,7 @@ class AuthService(BaseService):
 
         user = User(
             email=email,
-            password=password,
+            password= bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8'),
             nickname=nickname,
             company_id=company_id
         )

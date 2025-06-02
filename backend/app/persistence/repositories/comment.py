@@ -1,33 +1,42 @@
+from .base import BaseRepository
 from app.database.models.comment import Comment
 from app.database.models.comment_like import CommentLike
 
-from .base import BaseRepository
+from app.persistence.exception import PersistenceError
+
 
 class CommentRepository(BaseRepository):
+    @PersistenceError.error
     def get_by_id(self, comment_id: int) -> Comment | None:
         return self.session.query(Comment).filter(Comment.id == comment_id).first()
     
+    @PersistenceError.error
     def get_by_board_id(self, board_id: int) -> list[Comment]:
         return self.session.query(Comment).filter(Comment.board_id == board_id).all()
 
+    @PersistenceError.error
     def get_by_user(self, user_id: int) -> list[Comment]:
         return self.session.query(Comment).filter(Comment.user_id == user_id).all()
 
+    @PersistenceError.error
     def create(self, user_id: int, board_id: int, content: str, parent_comment_id: int = None) -> Comment:
         comment = Comment(user_id=user_id, board_id=board_id, content=content, parent_comment_id=parent_comment_id)
         self.session.add(comment)
         self.session.flush()
         return comment
 
+    @PersistenceError.error
     def update(self, comment: Comment, content: str) -> Comment:
         comment.content = content
         self.session.flush()
         return comment
 
+    @PersistenceError.error
     def delete(self, comment: Comment) -> None:
         self.session.delete(comment)
         self.session.flush()
 
+    @PersistenceError.error
     def like(self, comment_id: int, user_id: int) -> Comment:
         comment = self.get_by_id(comment_id)
         if comment is None:
@@ -43,6 +52,7 @@ class CommentRepository(BaseRepository):
         self.session.flush()
         return comment
 
+    @PersistenceError.error
     def unlike(self, comment_id: int, user_id: int) -> Comment:
         comment = self.get_by_id(comment_id)
         if comment is None:
