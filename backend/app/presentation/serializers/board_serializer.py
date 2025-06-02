@@ -1,6 +1,6 @@
 from app.database.models.board import Board
 
-def serial_board_to_dict(board: Board) -> dict:
+def serialize_board(board: Board) -> dict:
     return {
         "board_id": board.id,
         "category_name": board.category.name if board.category else None,

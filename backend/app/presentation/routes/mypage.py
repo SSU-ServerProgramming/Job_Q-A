@@ -5,7 +5,7 @@ from app.presentation.response import RestResponse, HttpResponseAdapter
 
 from app.presentation.serializers.user_serializer import serial_user_to_dict_mypage
 from app.presentation.serializers.comment_serializer import serial_comment_to_dict_mypage
-from app.presentation.serializers.board_serializer import serial_board_to_dict
+from app.presentation.serializers.board_serializer import serialize_board
 
 mypage_bp = Blueprint("mypage", __name__, url_prefix="/mypage")
 
@@ -28,7 +28,7 @@ def get_user_info():
 def get_user_boards():
     user_id = request.user['user_id']
     boards = MypageService(g.db).get_user_boards(user_id)
-    data = [serial_board_to_dict(board) for board in boards]
+    data = [serialize_board(board) for board in boards]
     return HttpResponseAdapter.from_rest(RestResponse.success(data=data, message="내가 작성한 게시글 목록을 성공적으로 조회했습니다."), http_status=200).to_flask_response()
 
 

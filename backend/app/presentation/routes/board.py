@@ -4,7 +4,8 @@ from app.presentation.response import HttpResponseAdapter, HttpResponse, RestRes
 from app.application.services.board import BoardService
 from app.presentation.middleware.jwt_middleware import token_required
 
-from app.presentation.serializers.board_serializer import serial_board_to_dict
+from app.presentation.serializers.board_serializer import serialize_board
+from app.presentation.serializers.comment_serializer import serialize_comment
 
 board_bp = Blueprint("board", __name__, url_prefix="/board")
 
@@ -15,7 +16,7 @@ def get_all_board():
         boards = BoardService(g.db).get_by_num_like()
     else:
         boards = BoardService(g.db).get_all_boards()
-    response_data = [serial_board_to_dict(b) for b in boards]
+    response_data = [serialize_board(b) for b in boards]
     response = RestResponse.success(
         data=response_data,
         message="게시글 목록을 성공적으로 조회했습니다."
@@ -25,7 +26,7 @@ def get_all_board():
 @board_bp.route("/category/<int:category_id>", methods=["GET"])
 def get_by_category_id(category_id):
     boards = BoardService(g.db).get_by_category_id(category_id)
-    reponse_data = [serial_board_to_dict(b) for b in boards]
+    reponse_data = [serialize_board(b) for b in boards]
     response = RestResponse.success(
         data=reponse_data,
         message="카테고리별 게시글 목록을 성공적으로 조회했습니다."
@@ -34,8 +35,12 @@ def get_by_category_id(category_id):
 
 @board_bp.route("/detail/<int:board_id>", methods=["GET"])
 def get_by_board_id(board_id):
-    board = BoardService(g.db).get_by_board_id(board_id=board_id)
-    response_data = serial_board_to_dict(board)
+    board, comments = BoardService(g.db).get_by_board_id(board_id=board_id)
+    
+    response_data = {
+        "board": serialize_board(board),
+        "comments": [serialize_comment(c) for c in comments]
+    }
     response = RestResponse.success(
         data=response_data,
         message="게시글을 성공적으로 조회했습니다."

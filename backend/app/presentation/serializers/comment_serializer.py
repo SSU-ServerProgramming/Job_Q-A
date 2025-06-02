@@ -1,6 +1,15 @@
 from app.database.models.comment import Comment
 
 
+def serialize_comment(comment):
+    return {
+        "comment_id": comment.id,
+        "parent_comment_id": comment.parent_comment_id,
+        "writer": comment.user_id,
+        "like": comment.num_like,
+        "content": comment.content
+    }
+
 def serial_comment_to_dict(comment: Comment) -> dict:
     return {
         "board_id": comment.board_id,
