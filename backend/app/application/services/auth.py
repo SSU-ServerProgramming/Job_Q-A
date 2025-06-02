@@ -9,8 +9,12 @@ from app.persistence.repositories.company import CompanyRepository
 
 
 class AuthService(BaseService):
+    def __is_valid_email(self, email: str) -> bool:
+        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        return bool(re.match(pattern, email))
+    
     def register(self, email: str, password: str, nickname: str) -> dict:
-        if not self._is_valid_email(email):
+        if not self.__is_valid_email(email):
             raise ValueError("유효하지 않은 이메일 형식입니다.")
 
         repo = UserRepository(self.session)
@@ -37,9 +41,6 @@ class AuthService(BaseService):
             'company_id': created_user.company_id
         }
 
-    def _is_valid_email(self, email: str) -> bool:
-        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        return bool(re.match(pattern, email))  
       
     def login(self, data: dict):
         repo = UserRepository(self.session)
