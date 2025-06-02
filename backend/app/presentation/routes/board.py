@@ -42,85 +42,78 @@ def get_by_board_id(board_id):
     )
     return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
 
-
 @board_bp.route("/", methods=["POST"])
 @token_required
 def create_board():
-    data = request.get_json()
-    title = data.get("title")
-    content = data.get("content")
-    category_id = data.get("category_id")
-    user_id = request.user['user_id']  # 토큰에서 user_id 추출
-
-    board = BoardService(g.db).create_board(user_id=user_id, title=title, content=content, category_id=category_id)
-    response_data = serial_board_to_dict(board)
-    response = RestResponse.success(
-        data=response_data,
-        message="게시글이 성공적으로 작성되었습니다."
-    )
-    return HttpResponseAdapter.from_rest(response, http_status=201).to_flask_response()
+    try:
+        data = request.get_json()
+        title = data.get("title")
+        content = data.get("content")
+        category_id = data.get("category_id")
+        user_id = request.user['user_id'] # 토큰에서 user_id 추출
+        BoardService(g.db).create_board(user_id=user_id, title=title, content=content, category_id=category_id)
+        return HttpResponseAdapter.from_rest(RestResponse.success(message="게시글이 성공적으로 작성되었습니다."), http_status=201).to_flask_response()
+    except ValueError as e:
+        return HttpResponseAdapter.from_rest(RestResponse.error(str(e)), http_status=400).to_flask_response()
 
 
 @board_bp.route("/<int:board_id>", methods=["PUT"])
 @token_required
 def update_board(board_id):
-    data = request.get_json()
-    title = data.get("title")
-    content = data.get("content")
-    category_id = data.get("category_id")
-    user_id = request.user['user_id']
-    board = BoardService(g.db).get_by_board_id(board_id)
-    if not board:
-        response = RestResponse.error("게시글이 존재하지 않습니다.", data=None)
-        return HttpResponseAdapter.from_rest(response, http_status=404).to_flask_response()
-    if board.user_id != user_id:
-        response = RestResponse.error("본인 게시글만 수정할 수 있습니다.", data=None)
-        return HttpResponseAdapter.from_rest(response, http_status=403).to_flask_response()
-    board = BoardService(g.db).update_board(board_id=board_id, user_id=user_id, title=title, content=content, category_id=category_id)
-    response_data = serial_board_to_dict(board)
-    response = RestResponse.success(
-        data=response_data,
-        message="게시글이 성공적으로 수정되었습니다."
-    )
-    return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
+    try:
+        data = request.get_json()
+        title = data.get("title")
+        content = data.get("content")
+        category_id = data.get("category_id")
+        user_id = request.user['user_id']
+        board_id = int(request.view_args['board_id'])
+        board = BoardService(g.db).get_by_board_id(board_id)
+        if not board:
+            return HttpResponseAdapter.from_rest(RestResponse.error("게시글이 존재하지 않습니다."), http_status=404).to_flask_response()
+        if board.user_id != user_id:
+            return HttpResponseAdapter.from_rest(RestResponse.error("본인 게시글만 수정할 수 있습니다."), http_status=403).to_flask_response()
+        BoardService(g.db).update_board(board_id=board_id, user_id=user_id, title=title, content=content, category_id=category_id)
+        return HttpResponseAdapter.from_rest(RestResponse.success(message="게시글이 성공적으로 수정되었습니다."), http_status=200).to_flask_response()
+    except ValueError as e:
+        return HttpResponseAdapter.from_rest(RestResponse.error(str(e)), http_status=400).to_flask_response()
 
 
 @board_bp.route("/<int:board_id>", methods=["DELETE"])
 @token_required
 def delete_board(board_id):
-    user_id = request.user['user_id']
-    board = BoardService(g.db).get_by_board_id(board_id)
-    if not board:
-        response = RestResponse.error("게시글이 존재하지 않습니다.", data=None)
-        return HttpResponseAdapter.from_rest(response, http_status=404).to_flask_response()
-    if board.user_id != user_id:
-        response = RestResponse.error("본인 게시글만 삭제할 수 있습니다.", data=None)
-        return HttpResponseAdapter.from_rest(response, http_status=403).to_flask_response()
-    BoardService(g.db).delete_board(board_id=board_id)
-    response = RestResponse.success(
-        data=None,
-        message="게시글이 성공적으로 삭제되었습니다."
-    )
-    return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
+    try:
+        user_id = request.user['user_id']
+        board_id = int(request.view_args['board_id'])
+        board = BoardService(g.db).get_by_board_id(board_id)
+        if not board:
+            return HttpResponseAdapter.from_rest(RestResponse.error("게시글이 존재하지 않습니다."), http_status=404).to_flask_response()
+        if board.user_id != user_id:
+            return HttpResponseAdapter.from_rest(RestResponse.error("본인 게시글만 삭제할 수 있습니다."), http_status=403).to_flask_response()
+        BoardService(g.db).delete_board(board_id=board_id)
+        return HttpResponseAdapter.from_rest(
+            RestResponse.success(message="게시글이 성공적으로 삭제되었습니다."), http_status=200).to_flask_response()
+    except ValueError as e:
+        return HttpResponseAdapter.from_rest(RestResponse.error(str(e)), http_status=400).to_flask_response()
 
 @board_bp.route("/<int:board_id>/like", methods=["POST"])
 @token_required
 def add_like(board_id):
-    user_id = request.user['user_id']  # 토큰에서 user_id 추출
-    BoardService(g.db).add_like(user_id=user_id, board_id=board_id)
-    response = RestResponse.success(
-        data=None,
-        message="게시글에 좋아요를 성공적으로 추가했습니다."
-    )
-    return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
+    try:
+        user_id = request.user['user_id'] # 토큰에서 user_id 추출
+        board_id = int(request.view_args['board_id'])
+        BoardService(g.db).add_like(user_id=user_id, board_id=board_id)
+        return HttpResponseAdapter.from_rest(
+            RestResponse.success(message="게시글에 좋아요를 성공적으로 추가했습니다."), http_status=200).to_flask_response()
+    except ValueError as e:
+        return HttpResponseAdapter.from_rest(RestResponse.error(str(e)), http_status=400).to_flask_response()
 
 @board_bp.route("/<int:board_id>/like", methods=["DELETE"])
 @token_required
 def delete_like(board_id):
-    user_id = request.user['user_id']  # 토큰에서 user_id 추출
-    BoardService(g.db).delete_like(user_id=user_id, board_id=board_id)
-    response = RestResponse.success(
-        data=None,
-        message="게시글의 좋아요를 성공적으로 취소했습니다."
-    )
-    return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
+    try:
+        user_id = request.user['user_id']
+        board_id = int(request.view_args['board_id'])
+        BoardService(g.db).delete_like(user_id=user_id, board_id=board_id)
+        return HttpResponseAdapter.from_rest(RestResponse.success(message="게시글의 좋아요를 성공적으로 취소했습니다."), http_status=200).to_flask_response()
+    except ValueError as e:
+        return HttpResponseAdapter.from_rest(RestResponse.error(str(e)), http_status=400).to_flask_response()

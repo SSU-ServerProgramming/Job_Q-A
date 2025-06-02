@@ -29,23 +29,20 @@ class RestResponse:
     def error(cls, message: str, data: Any = None, errors: dict[str, str] | None = None):
         return cls(status="error", data=data, message=message, errors=errors)
     
+    def to_dict(self):
+        response = {
+            "status": self.status,
+            "message": self.message,
+        }
+        if self.data is not None:
+            response["data"] = self.data
+        if self.errors is not None:
+            response["errors"] = self.errors
+        if self.meta is not None:
+            response["meta"] = self.meta
+        return response
 
 class HttpResponseAdapter:
     @staticmethod
-    def from_rest(
-        response: RestResponse,
-        http_status: int = 200,
-        headers: dict[str, str] | None = None
-    ) -> HttpResponse:
-        body: dict[str, Any] = {
-            "status": response.status,
-            "data": response.data,
-            "message": response.message
-        }
-
-        if response.errors:
-            body["errors"] = response.errors
-        if response.meta:
-            body["meta"] = response.meta
-
-        return HttpResponse(body, http_status=http_status, headers=headers or {})    
+    def from_rest(response: RestResponse, http_status: int = 200, headers: dict[str, str] | None = None) -> HttpResponse:
+        return HttpResponse(body=response.to_dict(), http_status=http_status, headers=headers or {})
