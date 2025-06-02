@@ -9,7 +9,7 @@ from app.persistence.repositories.company import CompanyRepository
 
 
 class AuthService(BaseService):
-    def register(self, email: str, password: str, nickname: str):
+    def register(self, email: str, password: str, nickname: str) -> dict:
         if not self._is_valid_email(email):
             raise ValueError("유효하지 않은 이메일 형식입니다.")
 
@@ -19,8 +19,6 @@ class AuthService(BaseService):
         if not company:
             raise ValueError("등록되지 않은 회사 도메인입니다.")
 
-        company_id = company.id
-
         if repo.get_by_email(email):
             raise ValueError("이미 등록된 이메일입니다.")
 
@@ -28,9 +26,10 @@ class AuthService(BaseService):
             email=email,
             password= bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8'),
             nickname=nickname,
-            company_id=company_id
+            company_id=company.id
         )
         created_user = repo.create(user)
+        self.session.commit()
         return {
             'id': created_user.id,
             'email': created_user.email,

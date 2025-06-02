@@ -1,5 +1,4 @@
 from .base import BaseRepository
-import bcrypt
 
 from app.database.models.user import User
 from app.database.models.company import Company
@@ -29,10 +28,7 @@ class UserRepository(BaseRepository):
 
     @PersistenceError.error
     def create(self, user: User) -> User:
-        """새로운 사용자 정보를 생성합니다."""
-        # hashed_password = bcrypt.hashpw(user.password.encode('utf-8'), bcrypt.gensalt())
-        # user.password = hashed_password.decode('utf-8')
-        
+        """새로운 사용자 정보를 생성합니다."""        
         self.session.add(user)
         self.session.flush()
         return user
