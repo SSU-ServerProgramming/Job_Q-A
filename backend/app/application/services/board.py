@@ -1,10 +1,12 @@
 # Application(service)에서는 주요 오류처리 로직이 동반되어야 합니다.
 from app.persistence.repositories.board import BoardRepository
+from app.persistence.repositories.comment import CommentRepository
 from app.persistence.repositories.board_likes import BoardLikesRepository
 
 from .base import BaseService
 
 from app.database.models import Board
+from app.database.models import Comment
 
 
 class BoardService(BaseService):
@@ -23,15 +25,14 @@ class BoardService(BaseService):
         repo = BoardRepository(self.session)
         return repo.get_by_num_like(skip=skip, limit=limit)
     
-    def get_by_board_id(self, board_id:int):
+    def get_by_board_id(self, board_id:int) -> tuple[Board, list[Comment]]:
         """board id에 대응되는 게시물을 반환합니다."""
-        repo = BoardRepository(self.session)
-        board = repo.get_by_id(board_id=board_id)
-        return board
-        # if not board:
-        #     raise Exception("Board Not found")
-        # else:
-        #     return board
+        board_repo = BoardRepository(self.session)
+        comment_repo = CommentRepository(self.session)
+        
+        board = board_repo.get_by_id(board_id=board_id)
+        comments = comment_repo.get_by_board_id(board_id=board_id)
+        return board, comments
 
     def create_board(self, user_id:int, title:str, category_id:int, content:str):
         """새로운 게시글을 생성합니다."""

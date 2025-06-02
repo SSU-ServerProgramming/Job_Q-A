@@ -6,6 +6,9 @@ from .base import BaseRepository
 class CommentRepository(BaseRepository):
     def get_by_id(self, comment_id: int) -> Comment | None:
         return self.session.query(Comment).filter(Comment.id == comment_id).first()
+    
+    def get_by_board_id(self, board_id: int) -> list[Comment]:
+        return self.session.query(Comment).filter(Comment.board_id == board_id).all()
 
     def get_by_user(self, user_id: int) -> list[Comment]:
         return self.session.query(Comment).filter(Comment.user_id == user_id).all()
