@@ -41,13 +41,13 @@ class AuthService(BaseService):
             'company_id': created_user.company_id
         }
 
-    def login(self, data: dict):
+    def login(self, email: str, password: str) -> dict:
         repo = UserRepository(self.session)
-        user = repo.get_by_email(data['email'])
+        user = repo.get_by_email(email)
         if not user:
             raise ValueError("존재하지 않는 이메일입니다.")
         
-        if not bcrypt.checkpw(data['password'].encode('utf-8'), user.password.encode('utf-8')):
+        if not bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
             raise ValueError("비밀번호가 일치하지 않습니다.")
             
         # JWT 토큰 생성

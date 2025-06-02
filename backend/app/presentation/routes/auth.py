@@ -44,8 +44,11 @@ def login():
         if 'password' not in data:
             response = RestResponse.error("비밀번호가 필요합니다.")
             return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
+        
+        email = data['email']
+        password = data['password']
 
-        result = AuthService(g.db).login(data)
+        result = AuthService(g.db).login(email, password)
         response = RestResponse.success(data=result, message="로그인이 성공적으로 완료되었습니다.")
         return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
 
