@@ -86,23 +86,23 @@ def refresh():
         response = RestResponse.error(str(e))
         return HttpResponseAdapter.from_rest(response, http_status=500).to_flask_response()
     
-@auth_bp.route("/company", methods=["POST"])
-def link_company():
-    try:
-        data = request.get_json()
-        user_id = data.get("user_id")
-        company_email = data.get("company_email")
+# @auth_bp.route("/company", methods=["POST"])
+# def link_company():
+#     try:
+#         data = request.get_json()
+#         user_id = data.get("user_id")
+#         company_email = data.get("company_email")
 
-        result = AuthService(g.db).link_company(user_id, company_email)
+#         result = AuthService(g.db).link_company(user_id, company_email)
 
-        if result is None:
-            response = RestResponse.error("회사 연동에 실패했습니다.")
-            return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
+#         if result is None:
+#             response = RestResponse.error("회사 연동에 실패했습니다.")
+#             return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
 
-        response = RestResponse.success(
-            message="회사 정보가 성공적으로 등록되었습니다."
-        )
-        return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
-    except ValueError as e:
-        response = RestResponse.error(str(e))
-        return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
+#         response = RestResponse.success(
+#             message="회사 정보가 성공적으로 등록되었습니다."
+#         )
+#         return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
+#     except ValueError as e:
+#         response = RestResponse.error(str(e))
+#         return HttpResponseAdapter.from_rest(response, http_status=400).to_flask_response()
