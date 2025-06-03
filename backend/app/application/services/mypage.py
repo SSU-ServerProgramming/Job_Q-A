@@ -17,7 +17,7 @@ class MypageService(BaseService):
         repo = CompanyRepository(self.session)
         company = repo.get_by_id(user.company_id)
 
-        return {user.id, user.email, user.nickname, company.name}
+        return user.id, user.email, user.nickname, company.name
 
     # 내가 쓴 게시글 목록 조회
     def get_user_boards(self, user_id: int) -> list:
