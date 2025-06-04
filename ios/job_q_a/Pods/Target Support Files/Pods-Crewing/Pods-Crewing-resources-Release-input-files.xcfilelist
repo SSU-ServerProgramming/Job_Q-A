@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-Crewing/Pods-Crewing-resources.sh
+${PODS_CONFIGURATION_BUILD_DIR}/KakaoSDKCertCore/KakaoSDKCertCore.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/KakaoSDKFriendCore/KakaoSDKFriendResources.bundle

@@ -1,0 +1,6 @@
+framework module Pods_CrewingTests {
+  umbrella header "Pods-CrewingTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
