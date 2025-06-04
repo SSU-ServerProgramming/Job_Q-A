@@ -31,7 +31,7 @@ class BoardService(BaseService):
     
     def get_by_board_id(self, board_id:int):
         """board id에 대응되는 게시물을 반환합니다.
-        현재 Board, Comment 객체에 동적으로 is_mine을 임시로 추가해두었습니다.
+        현재 Board, Comment 객체에 동적으로 is_liked을 임시로 추가해두었습니다.
         """
         board_repo = BoardRepository(self.session)
         board_like_repo = BoardLikesRepository(self.session)
@@ -46,20 +46,20 @@ class BoardService(BaseService):
 
         if board_like_repo.get_by_user_board_id(board.user_id, board.id) is not None:
             if board.user_id == (board_like_repo.get_by_user_board_id(board.user_id, board.id)).user_id:
-                board_result.is_mine = True
+                board_result.is_liked = True
             else:
-                board_result.is_mine = False
+                board_result.is_liked = False
         else:
-            board_result.is_mine = False
+            board_result.is_liked = False
     
         for c in comments_result:
             if comment_like_repo.get_by_user_comment_id(c.user_id, c.id) is not None:
                 if c.user_id == (comment_like_repo.get_by_user_comment_id(c.user_id, c.id)).user_id:
-                    c.is_mine = True
+                    c.is_liked = True
                 else:
-                    c.is_mine = False
+                    c.is_liked = False
             else:
-                c.is_mine = False
+                c.is_liked = False
             
         return board_result, comments_result
 

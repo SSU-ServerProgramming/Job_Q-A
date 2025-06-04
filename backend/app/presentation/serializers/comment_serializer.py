@@ -18,7 +18,7 @@ def serialize_comment_detail(comment: Comment) -> dict:
         "writer": comment.author.nickname,
         "like": comment.num_like,
         "content": comment.content,
-        "is_mine": comment.is_mine
+        "is_liked": comment.is_liked
     }
 
 def serial_comment_to_dict(comment: Comment) -> dict:

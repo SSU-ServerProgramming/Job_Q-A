@@ -23,5 +23,5 @@ def serialize_board_detail(board: Board) -> dict:
         "like": board.num_like,
         "title": board.title,
         "writer": board.author.nickname  if board.author else None,
-        "is_mine": board.is_mine
+        "is_liked": board.is_liked
     }
