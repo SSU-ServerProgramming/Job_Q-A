@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- categories table
 CREATE TABLE IF NOT EXISTS categories (
-  id       INT NOT NULL AUTO_INCREMENT,
+  id       INT NOT NULL,
   name     VARCHAR(45) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY uq_categories_name      (name)
