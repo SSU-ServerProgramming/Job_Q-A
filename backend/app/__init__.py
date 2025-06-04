@@ -1,5 +1,6 @@
 import os
 from flask import Flask, g
+from flask_cors import CORS
 
 from app.config import config
 from app.presentation import routes
@@ -26,6 +27,9 @@ def create_app() -> Flask:
     
     config_name = os.getenv("APP_ENV", "default")
     app.config.from_object(config[config_name])
+    
+    # CORS 설정 추가
+    CORS(app, resources={r"/*": {"origins": "*", "supports_credentials": True}})
     
     app.before_request(open_session)
     app.teardown_request(close_session)

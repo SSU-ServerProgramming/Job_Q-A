@@ -6,3 +6,4 @@ cryptography
 bcrypt
 python-dotenv
 PyJWT==2.8.0
+flask-cors==4.0.0
