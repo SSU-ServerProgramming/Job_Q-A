@@ -72,7 +72,7 @@ def update_board(board_id):
         category_id = data.get("category_id")
         user_id = request.user['user_id']
         board_id = int(request.view_args['board_id'])
-        board = BoardService(g.db).get_by_board_id(board_id)
+        board, _ = BoardService(g.db).get_by_board_id(board_id)
         if not board:
             return HttpResponseAdapter.from_rest(RestResponse.error("게시글이 존재하지 않습니다."), http_status=404).to_flask_response()
         if board.user_id != user_id:
@@ -89,7 +89,7 @@ def delete_board(board_id):
     try:
         user_id = request.user['user_id']
         board_id = int(request.view_args['board_id'])
-        board = BoardService(g.db).get_by_board_id(board_id)
+        board, _ = BoardService(g.db).get_by_board_id(board_id)
         if not board:
             return HttpResponseAdapter.from_rest(RestResponse.error("게시글이 존재하지 않습니다."), http_status=404).to_flask_response()
         if board.user_id != user_id:
