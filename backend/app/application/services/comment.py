@@ -4,6 +4,7 @@ from .base import BaseService
 
 from app.persistence.repositories.comment_like import CommentLikesRepository
 from sqlalchemy.exc import IntegrityError
+from app.persistence.repositories.board import BoardRepository
 
 class CommentService(BaseService):
     # 유저가 작성한 모든 댓글 조회
@@ -21,6 +22,7 @@ class CommentService(BaseService):
         if board is None:
             raise ValueError("게시물이 존재하지 않습니다.")
         repo = CommentRepository(self.session)
+        board.num_comment += 1
         return repo.create(user_id=user_id, board_id=board_id, content=content, parent_comment_id=parent_comment_id)
 
     def update_comment(self, comment_id: int, user_id: int, content: str) -> Comment:
@@ -36,13 +38,16 @@ class CommentService(BaseService):
 
     def delete_comment(self, comment_id: int, user_id: int) -> Comment:
         repo = CommentRepository(self.session)
+        board_repo = BoardRepository(self.session)
         comment = repo.get_by_id(comment_id=comment_id)
 
         if comment is None:
             raise ValueError("댓글이 존재하지 않습니다.")
         if comment.user_id != user_id:
             raise ValueError("댓글 삭제 권한이 없습니다.")
-
+        
+        board = board_repo.get_by_id(board_id=comment.board_id)
+        board.num_comment = max(0, board.num_comment - 1)
         repo.delete(comment)
         return comment
 
