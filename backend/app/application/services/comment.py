@@ -21,6 +21,10 @@ class CommentService(BaseService):
         board = self.session.query(Board).filter(Board.id == board_id).first()
         if board is None:
             raise ValueError("게시물이 존재하지 않습니다.")
+        if parent_comment_id is not None:
+            parent_comment = self.session.query(Comment).filter(Comment.id == parent_comment_id).first()
+            if parent_comment is None:
+                raise ValueError("원댓글이 존재하지 않습니다.")
         repo = CommentRepository(self.session)
         board.num_comment += 1
         return repo.create(user_id=user_id, board_id=board_id, content=content, parent_comment_id=parent_comment_id)
