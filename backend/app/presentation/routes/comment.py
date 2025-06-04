@@ -8,7 +8,7 @@ from app.presentation.serializers.comment_serializer import serial_comment_to_di
 comment_bp = Blueprint("comment", __name__, url_prefix="/comment")
 
 
-@comment_bp.route("/", methods=["POST"])
+@comment_bp.route("", methods=["POST"])
 @token_required
 def create_comment():
     try:
