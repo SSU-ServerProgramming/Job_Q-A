@@ -4,8 +4,8 @@ INSERT INTO companies(id, name, domain)
 VALUES
     (1, 'Naver', 'navercorp.com'),
     (2, 'Kakao', 'kakaocorp.com'),
-    (3, 'Line', 'lineworks.com');
-    (4, 'example', 'example.com'),
+    (3, 'Line', 'lineworks.com'),
+    (4, 'example', 'example.com');
 
 -- INSERT INTO users (nickname, email, password, company_id)
 -- VALUES  
