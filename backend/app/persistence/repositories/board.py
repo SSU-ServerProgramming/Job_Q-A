@@ -1,4 +1,5 @@
 from sqlalchemy import or_
+from sqlalchemy.orm import joinedload
 
 from .base import BaseRepository
 from app.database.models.board import Board
@@ -10,7 +11,16 @@ class BoardRepository(BaseRepository):
     @PersistenceError.error
     def get_by_id(self, board_id: int) -> Board | None:
         """ID로 게시글을 조회합니다."""
-        return self.session.query(Board).filter(Board.id == board_id).first()
+        result = (
+            self.session.query(Board)
+            .options(
+                joinedload(Board.author),
+                joinedload(Board.category)
+            )
+            .filter(Board.id == board_id)
+            .first()
+        )
+        return result
     
     @PersistenceError.error
     def get_by_user_id(self, user_id: int) -> list[Board]:

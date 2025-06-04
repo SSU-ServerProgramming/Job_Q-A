@@ -4,8 +4,8 @@ from app.presentation.response import HttpResponseAdapter, HttpResponse, RestRes
 from app.application.services.board import BoardService
 from app.presentation.middleware.jwt_middleware import token_required
 
-from app.presentation.serializers.board_serializer import serialize_board
-from app.presentation.serializers.comment_serializer import serialize_comment
+from app.presentation.serializers.board_serializer import *
+from app.presentation.serializers.comment_serializer import *
 
 board_bp = Blueprint("board", __name__, url_prefix="/board")
 
@@ -38,8 +38,8 @@ def get_by_board_id(board_id):
     board, comments = BoardService(g.db).get_by_board_id(board_id=board_id)
     
     response_data = {
-        "board": serialize_board(board),
-        "comments": [serialize_comment(c) for c in comments]
+        "board": serialize_board_detail(board),
+        "comments": [serialize_comment_detail(c) for c in comments]
     }
     response = RestResponse.success(
         data=response_data,

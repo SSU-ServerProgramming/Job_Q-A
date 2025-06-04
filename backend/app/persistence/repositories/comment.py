@@ -1,3 +1,5 @@
+from sqlalchemy.orm import joinedload
+
 from .base import BaseRepository
 from app.database.models.comment import Comment
 from app.database.models.comment_like import CommentLike
@@ -12,6 +14,12 @@ class CommentRepository(BaseRepository):
     
     @PersistenceError.error
     def get_by_board_id(self, board_id: int) -> list[Comment]:
+        result = (
+            self.session.query(Comment)
+            .options(joinedload(Comment.author))
+            .filter(Comment.board_id == board_id)
+            .all()
+        )
         return self.session.query(Comment).filter(Comment.board_id == board_id).all()
 
     @PersistenceError.error
