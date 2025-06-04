@@ -1,0 +1,857 @@
+commit ca107f9822ede29f0e7b6205aa4761bae750ac91
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Jun 2 19:40:34 2025 +0900
+
+    fix: presentation -> application / Json dict dat가 아닌 python datatype으로
+
+commit 929e4a2f027f7fc285c882cb061b34942ffb80db
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Jun 2 19:33:00 2025 +0900
+
+    fix: link_comapny() 삭제
+
+commit a5adac5fbdb2c452170e7b31018135d33591b158
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Jun 2 19:32:33 2025 +0900
+
+    fix: link_comapny() 삭제
+
+commit 7776fffe696949a123f1aeecbfdb2e45f5e7c064
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Jun 2 19:29:21 2025 +0900
+
+    fix: Naming
+
+commit 97072c14b580f4dfe6fe70917729066ce9400124
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Jun 2 19:27:14 2025 +0900
+
+    fix: auth service commit추가
+
+commit 127d6481227b96588bf1ab4baa681ced99bc2929
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Jun 2 19:19:41 2025 +0900
+
+    fix: password 해싱 서비스로 위임
+
+commit 1b77a54aaa39749fe889b58b0bba4494a97a29b5
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Jun 2 18:41:35 2025 +0900
+
+    fix: 게시글 상세조회 수정
+
+commit a9115e1091daa75cc550a3659c0a986305481236
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Jun 2 18:36:34 2025 +0900
+
+    fix: 게시글 상세조회 수정
+
+commit fea908ff58233ebc5d03acc6a26dd057ee139e89
+Author: rest-point <restpoint@naver.com>
+Date:   Mon Jun 2 18:15:57 2025 +0900
+
+    response 수정, board.py try-except 작성,  comment.py try-except 작성
+
+commit 468781fe4fb8f48fcbe4a4f9bb2e8cd46991f371
+Merge: a9c75da 929da66
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Mon Jun 2 15:37:51 2025 +0900
+
+    Merge pull request #14 from SSU-ServerProgramming/docs/db
+    
+    Chore : ERD.png 수정
+
+commit 929da663e0f34b50c71ff410c3792df346aa0e3a
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Mon Jun 2 15:37:25 2025 +0900
+
+    Chore : ERD.png 수정
+
+commit a9c75da49ef9b4426d93c99267c80842bcb57539
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Jun 2 01:00:39 2025 +0900
+
+    chore: Readme 수정
+
+commit a60d1c65d21a082daa793118260d8dfc67efbd41
+Merge: 7d4f693 a2fcef9
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Jun 2 00:44:11 2025 +0900
+
+    Merge branch 'main' of https://github.com/SSU-ServerProgramming/Job_Q-A
+
+commit 7d4f693657f26a6252207f6707f25e68ae0d5ebd
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Jun 2 00:39:56 2025 +0900
+
+    feat: persistence 예외처리
+
+commit a2fcef96abe340e142782a63cfc508580a4c954f
+Merge: 474949f 33f1b24
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Sun Jun 1 23:29:12 2025 +0900
+
+    Merge pull request #13 from SSU-ServerProgramming/tmp
+    
+    Fix : 댓글 좋아요 / 좋아요 취소 에러 발생 시 router에서 except 로직 추가
+
+commit 33f1b24ab878056d4b29a46c98b313280cc375e0
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sun Jun 1 23:28:43 2025 +0900
+
+    Fix : 댓글 좋아요 / 좋아요 취소 에러 발생 시 router에서 except 로직 추가
+
+commit 474949fb5ceab687db9d0736eb33e5a43759ddd5
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sun Jun 1 23:16:42 2025 +0900
+
+    Fix : 전체 API 테스트 확인
+
+commit cb22139bbbaafc321f45704596131b4e4fd4d485
+Merge: 8717187 5dbb53c
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Sun Jun 1 22:40:07 2025 +0900
+
+    Merge pull request #12 from SSU-ServerProgramming/tmp
+    
+    Refactor : 회원가입시 company_id(company_name) 필드 삭제
+
+commit 5dbb53cb303b4f02d7809febc7917e70ccbe7026
+Merge: e8c6061 8717187
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Sun Jun 1 22:39:59 2025 +0900
+
+    Merge branch 'main' into tmp
+
+commit e8c6061e2b1bb4b75946d32d72761ca0b55a1ca2
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sun Jun 1 22:37:10 2025 +0900
+
+    Refactor : 회원가입시 company_id(company_name) 필드 삭제
+
+commit 8717187e99f3e65211516a27acbc3f0f16412b10
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Jun 1 22:25:18 2025 +0900
+
+    fix: 주석 수정
+
+commit 7dd7787ed42f80601b55e050ebbc6ea119e7cca8
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Jun 1 22:15:14 2025 +0900
+
+    fix: schema.sql 문법 오류 수정
+
+commit a3a67362c736fd96ff2a836c9bd6aa9d4135eb02
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Jun 1 22:10:05 2025 +0900
+
+    feat: Company Repo 구현
+
+commit cd19088853950ab728472e4bca1f1c8bfede6808
+Merge: 6131a49 3340b89
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Sun Jun 1 22:08:03 2025 +0900
+
+    Merge pull request #11 from SSU-ServerProgramming/schema
+    
+    Refactor : company_id -> company_name 변경
+
+commit 3340b89d492da259895938303311c83f4a6b6970
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sun Jun 1 22:06:14 2025 +0900
+
+    Refactor : company_id -> company_name 변경
+
+commit 6131a491addbf088c55da47d01d4fbf5d33f0f40
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Jun 1 21:54:46 2025 +0900
+
+    fix: models/user 수정
+
+commit 246fa4f294953572b8c4905d5ecf45ef5d200ec0
+Merge: ab39c1f 1356c95
+Author: rest-point <restpoint@naver.com>
+Date:   Sun Jun 1 21:32:03 2025 +0900
+
+    Merge branch 'schema' of https://github.com/SSU-ServerProgramming/Job_Q-A into schema
+
+commit ab39c1f9c5cf2a1798aba584ff261a7b3539fbd1
+Author: rest-point <restpoint@naver.com>
+Date:   Sun Jun 1 21:21:37 2025 +0900
+
+    schema, z_seed 수정
+
+commit 1356c957b52f1efda67452a05ec03b9aee22fb5f
+Author: rest-point <restpoint@naver.com>
+Date:   Sun Jun 1 21:21:37 2025 +0900
+
+    schema, z_seed 수정
+
+commit 1bd511043da9271801632eebea62cc7c028f8bce
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Jun 1 21:04:30 2025 +0900
+
+    fix: models/user 수정
+
+commit 306554bb1bca99ce9da6643bdb7821f0e3e1e9cc
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Jun 1 20:45:09 2025 +0900
+
+    fix: comment like 스키마 수정
+
+commit 54119e94dc02cec400812d18b28c27f56f0e9358
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Jun 1 20:43:23 2025 +0900
+
+    fix: 스키마 원래대로 수정
+
+commit 804b5e5ccf38ac0f0880ecf9a5ecf2fccb135676
+Author: rest-point <restpoint@naver.com>
+Date:   Sun Jun 1 20:32:05 2025 +0900
+
+    company api 구현
+
+commit ba0ce7dc6c92161b375ad90f7f9e76a62da7b0ca
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Jun 1 19:04:20 2025 +0900
+
+    feat: persistence/exception.py 구현
+
+commit 343a8b017da92363912117b17a21537f01649f84
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Jun 1 17:14:10 2025 +0900
+
+    fix: user repo / commit->flush 수정
+
+commit f385f5b318eb94aaffba550231aeb3a332fe5925
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Jun 1 17:13:15 2025 +0900
+
+    fix: comment_likes commit->flush 수정
+
+commit 7efaadd46c951d0652ba966d66ef6695b28198e3
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Jun 1 17:09:40 2025 +0900
+
+    fix: board_likes commit->flush 수정
+
+commit 09f34f1703600b232553c018a341d355fd3243db
+Merge: 6ba8137 5a3ea42
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Sat May 31 01:35:37 2025 +0900
+
+    Merge pull request #10 from SSU-ServerProgramming/tmp
+    
+    Fix : User 정보를 Dict으로 변환 중 user.company.name -> user.company_name
+
+commit 5a3ea429a6b916fa18500ce693c540a92ec6d26e
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sat May 31 01:35:11 2025 +0900
+
+    Fix : User 정보를 Dict으로 변환 중 user.company.name -> user.company_name
+
+commit 6ba8137cb127da2d83f2d050f85c52f6aa195d50
+Merge: 5dbee62 60a18c3
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Sat May 31 01:26:26 2025 +0900
+
+    Merge pull request #9 from SSU-ServerProgramming/feat/jwt
+    
+    Feat/jwt
+
+commit 60a18c3ad2a6a2327b51d5a9c28d48873a61aa87
+Merge: bceafdd 5dbee62
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Sat May 31 01:26:19 2025 +0900
+
+    Merge branch 'main' into feat/jwt
+
+commit bceafddbdd5331b2e154bc29e54eb8cbe9244157
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sat May 31 01:22:05 2025 +0900
+
+    Refactor : User Table Column 중 company_id -> company_name
+
+commit e3489d96fa5c66464eecc1c913ef1e5818f1a195
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sat May 31 01:08:21 2025 +0900
+
+    Refactor : Access Token 만료기간 1시간 -> 30일
+
+commit 5dbee62c6353d658bf205162e92ae16294277542
+Author: rest-point <restpoint@naver.com>
+Date:   Thu May 29 23:26:11 2025 +0900
+
+    serializers 추가, comment, mypage 수정
+
+commit b3faf5cb75035a783286f1d0b75917b2fd055c10
+Merge: cf7693e 23b3f94
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Thu May 29 10:33:10 2025 +0900
+
+    Merge pull request #8 from SSU-ServerProgramming/feat/jwt
+    
+    Feat/jwt
+
+commit 23b3f94b82120477e0eef4cdc5d7ecc2f9eb8f60
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Thu May 29 10:32:36 2025 +0900
+
+    Fix : 게시글 댓글 수 동기화 로직 추가
+
+commit 3d4d0383c4112688f37eac2b07a422a8553b37e1
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Thu May 29 10:03:16 2025 +0900
+
+    Refactor : 통일된 응답 형식 적용(data, message, status)
+
+commit cf7693e6eeb9caa5acb1a6150b390a5fd54dccb2
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed May 28 18:59:09 2025 +0900
+
+    fix: 레포지토리 commit -> flush
+
+commit 77390946840ad4128b3fa5e31ae03c2a26fcecc3
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed May 28 18:48:26 2025 +0900
+
+    chore: ..repositories/__init__.py 수정
+
+commit 899fb2d59342e35c5f357d5e06e9f64ef4b9db79
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed May 28 18:45:39 2025 +0900
+
+    chore: app/persistence/__init__.py 수정
+
+commit 9ccbcb7fc51fdf4f50912c51c82c71ad7e6d162f
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed May 28 18:41:57 2025 +0900
+
+    chore: ../models/__init__.py 수정 "
+    Base, TimestampMixin: __all__에서 삭제
+
+commit 6e3802edfd1ad54c3ae9e9460e9aa90053697aaa
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed May 28 18:38:57 2025 +0900
+
+    chore: ../models/__init__.py 수정 "
+    Base, TimestampMixin: __all__에서 삭제
+
+commit 50a0884ca7ca4153815c2276501d430e692b884a
+Merge: 1cf59de 530e37d
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Wed May 28 18:12:50 2025 +0900
+
+    Merge pull request #7 from SSU-ServerProgramming/feat/jwt
+    
+    Feat/jwt
+
+commit 530e37d374421b3d1db0e9bf659b5243826d496e
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Wed May 28 16:55:57 2025 +0900
+
+    Fix : JWT Access Token만으로 타인의 글 / 댓글 삭제 가능하던 오류 수정
+
+commit e390d8c1413cefbde9df88c6d4748fae7baca1da
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Wed May 28 16:33:46 2025 +0900
+
+    Feat : 카테고리 조회
+
+commit ad64c497ccbf60ed71a0bc7d421cb45f963be57e
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Wed May 28 15:26:06 2025 +0900
+
+    Feat : JWT Access Token 검증 실패시 오류 반환 로직 추가
+
+commit 18975213381f432ffdfedb65059641ceb363cd09
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Wed May 28 15:04:17 2025 +0900
+
+    Feat : 인가가 필요한 API에 JWT Access Token 검증 로직 추가
+
+commit 1cf59ded7608bf3f585c2a88effb4907a90cd8df
+Merge: 4b81d25 cef5911
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Wed May 28 14:51:31 2025 +0900
+
+    Merge pull request #6 from SSU-ServerProgramming/feat/jwt
+    
+    Fix : get_all_board() -> get_all_boards()
+
+commit cef5911843ea01826a083a6f45da94fc7dd32260
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Wed May 28 14:43:08 2025 +0900
+
+    Fix : get_all_board() -> get_all_boards()
+
+commit 4b81d25b94ba7e80e505938e731d9099b8254d70
+Merge: 24a34fe f48f99b
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Wed May 28 14:38:43 2025 +0900
+
+    Merge pull request #5 from SSU-ServerProgramming/feat/jwt
+    
+    Feat/jwt
+
+commit f48f99b2d5195f095fca3d9e7e9cb97c10da0f8c
+Merge: b524cb5 24a34fe
+Author: Taeyoung Kim <108168686+Kim-Tae-Yeong@users.noreply.github.com>
+Date:   Wed May 28 14:38:34 2025 +0900
+
+    Merge branch 'main' into feat/jwt
+
+commit 24a34feaada7ef905e5d0db5db0a33ecefbf0e10
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed May 28 03:26:58 2025 +0900
+
+    chore: docs 수정
+
+commit b06d6e3dc88d9d83f59bcf6863e1dc240983fe73
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed May 28 03:25:25 2025 +0900
+
+    chore: docs 수정
+
+commit 3f34d2ea41f6c193bcae02ea83abf10897a6e01b
+Merge: db71bcd 529614b
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed May 28 02:54:52 2025 +0900
+
+    Merge branch 'feat/board'
+
+commit db71bcdcfe72c9cb26a9c3336e1f28ab6bf98639
+Merge: 1ae144c 3e8bb75
+Author: rest-point <restpoint@naver.com>
+Date:   Tue May 27 22:22:16 2025 +0900
+
+    Merge branch 'backup2' into api_test
+
+commit 1ae144cdadd6ee140e545868df814e7e78527093
+Author: rest-point <restpoint@naver.com>
+Date:   Tue May 27 22:04:15 2025 +0900
+
+    123
+
+commit 3e8bb75f41573fc2901772497d012ecb9bb001c0
+Author: rest-point <restpoint@naver.com>
+Date:   Tue May 27 21:54:52 2025 +0900
+
+    Rename 3조_보고서(03:28).pptx to 3조_보고서(0328).pptx
+    
+    merge error
+
+commit 024cfb979584956bb9f296db8b6143d613475bef
+Author: rest-point <restpoint@naver.com>
+Date:   Tue May 27 21:53:16 2025 +0900
+
+    Delete ios/?
+    
+    merge error
+
+commit 529614ba81cd6091248603cc813a9d09d8d25e31
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue May 27 19:42:03 2025 +0900
+
+    feat: board 구현
+
+commit b524cb58f4b129ac5850b4068888aec60dd9cc68
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Mon May 26 16:00:36 2025 +0900
+
+    Chore : JWT 발급 & 갱신
+
+commit 7d165a95f090f0efdb2672adbbc6effe608343ab
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Mon May 26 15:32:07 2025 +0900
+
+    Feat : 로그인
+
+commit e6c8c32905c02af0d0efc9d437ea3cc0da1fb23b
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Mon May 26 15:20:11 2025 +0900
+
+    Chore : Response 형식 통일(data & status)
+
+commit 20400b0fbe91888ecde76eeeec2e924731ae3f4a
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Mon May 26 15:19:13 2025 +0900
+
+    Feat : 회원가입시 이메일 형식 & 중복 확인
+
+commit dd6981729089da03bc9fc5b6a2057ef15e127ae0
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Mon May 26 15:11:04 2025 +0900
+
+    Feat : 회원가입
+
+commit 2649f92d60a1a392e5ac54fc9ecb8da03d1eff14
+Author: rest-point <restpoint@naver.com>
+Date:   Sun May 25 20:05:30 2025 +0900
+
+    comment, comment_like, mypage 구현
+
+commit a895cc8a06acf2fdb107579dd75015616d2b38e1
+Merge: f79ed9d 18d6c7b
+Author: rest-point <restpoint@naver.com>
+Date:   Sun May 25 14:14:34 2025 +0900
+
+    Merge remote-tracking branch 'origin/main' into api_test
+
+commit f79ed9dea8b27ab8fff6182895c8c41e74296b42
+Merge: e8eb49b 1aa0dc3
+Author: rest-point <restpoint@naver.com>
+Date:   Sun May 25 14:11:28 2025 +0900
+
+    Merge remote-tracking branch 'origin/feat/jwt' into api_test
+
+commit 18d6c7b5890bac5eaf078f901aa1aa6145000fac
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Fri May 23 22:09:12 2025 +0900
+
+    feat: presentation/response.py 구현"
+    
+    structure branch의 common/response.py를 참고해, 응답형식 구현
+
+commit 1aa0dc31298c57cb970cf5d245e6217a94da17ad
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Fri May 23 21:54:38 2025 +0900
+
+    Chore : get_all_board() -> get_all_boards() & docker-compose.dev.yml 파일 수정
+
+commit 4623587194b5bc33fdc9bc6a7cf1351484fb69ec
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Fri May 23 10:13:04 2025 +0900
+
+    feat: board레포지토리 완성
+
+commit 33938c4e8104d75f14726d90f0fc90e26d633b39
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Fri May 23 03:51:08 2025 +0900
+
+    feat: wsgi 추가, Makefile추가
+
+commit e8eb49b639830d125d078c440c15e0da473c9996
+Author: rest-point <restpoint@naver.com>
+Date:   Fri May 23 00:45:31 2025 +0900
+
+    comments, mypage 구현, board는 comments 작동 확인용으로 임시구현현
+
+commit bd3c254cf3200b0804b6b17c19e586e9e1fd593d
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon May 19 19:49:58 2025 +0900
+
+    chore: presentation/controllers/ 삭제
+
+commit 388e18b1f058f83899083de392ad66d06b38d939
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun May 18 16:36:34 2025 +0900
+
+    chore: config/ 수정
+
+commit fa2bcb90b271fe60deb8fd57b37ccb3d2cf2aa67
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun May 18 16:14:51 2025 +0900
+
+    chore: requirments.txt 수정Flask==3.1.0 -> Flask>=3.1.1
+
+commit c83a9e312907f5bd1b8ff01d94e324ccd9f850a6
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Thu May 15 22:31:45 2025 +0900
+
+    feat: database layer구현
+
+commit 240e6b19950e10f39bb64197511b6949e69f0200
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Thu May 15 13:23:08 2025 +0900
+
+    feat: database layer구현, persistence User구현
+
+commit 95386428db22814325b1299e30f5e11e4c1dc2f8
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sun Apr 27 11:45:01 2025 +0900
+
+    Feat : 로그인시 입력한 비밀번호랑 암호화된 비밀번호 비교 로직 추가
+
+commit f65fd6b258ff482535cdab63237279b3650f46e2
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sun Apr 27 11:35:43 2025 +0900
+
+    Feat : 회원가입시 이메일 중복 여부 확인
+
+commit 7b7d5b4bbf8a17d6fb9e3e2de7f22f05db779a1a
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sun Apr 27 10:32:45 2025 +0900
+
+    Feat : 회원가입시 비밀번호 암호화
+
+commit 4e66d013d05f9b3f9c3d26f7f334f7e78e3f09e4
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sat Apr 26 22:47:15 2025 +0900
+
+    Feat : 로그인
+
+commit 9ffe85e6d8eecf982580c257ba4270152c3d872b
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sat Apr 26 22:38:44 2025 +0900
+
+    Feat : 회원가입
+
+commit c83ac81297aad41642bc5eb8cdd556d12401d472
+Merge: 9ddae1e 10af9b2
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sat Apr 26 19:26:17 2025 +0900
+
+    Chore : backend/db 파일 수정
+
+commit 9ddae1e7889adb6634c9e440d5874568b21c6203
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sat Apr 26 19:23:28 2025 +0900
+
+    Chore : backend/db 파일 수정
+
+commit 9a445846100b295bb661261f819428f9cc322d56
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Sat Apr 26 19:19:46 2025 +0900
+
+    Chore : backend/db 파일 수정
+
+commit 10af9b2483698f99b8828350f373512309843dfc
+Author: kimsoomin <skno1382@soongsil.ac.kr>
+Date:   Fri Apr 11 16:49:00 2025 +0900
+
+    update v1_figma_design.png
+
+commit 2aebd4306c26490863f5499d11df366cc072f61e
+Author: Taeyoung Kim <legends0427@gmail.com>
+Date:   Thu Apr 10 15:26:22 2025 +0900
+
+    Update ERD.png
+
+commit 1f64eba3a4626f27a2eceadd9bb2b4aefdcc35d0
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed Apr 9 09:14:53 2025 +0900
+
+    upload ERD example image(draw by sqlflow.com
+
+commit f021380571a5e32f18437f0d0d88099eb8ec1cb7
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 8 23:54:22 2025 +0900
+
+    update backend/ structure
+
+commit f6051df2faafaf4b9d2af498f45635ff2507d7c6
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 8 21:41:00 2025 +0900
+
+    remove backend/views
+
+commit 1c551a187b6d8e58b0515cfd1346256525117cd5
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 8 21:15:41 2025 +0900
+
+    Update schema.sql
+
+commit 4a57f69aa5325ea294cab4cc3110ce8fbc7356c9
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 8 20:50:49 2025 +0900
+
+    add timestamp
+
+commit 226d25dc2bf76bfeeb53e9e2d97eb91ecc11b0b6
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 8 11:26:23 2025 +0900
+
+    Update schema.sql
+
+commit aa41a0281970b3f6dfa7ba244327cd2b9545b993
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 8 03:04:07 2025 +0900
+
+    add model/ view/ controller/
+
+commit d360913274f7cfe17071a3292cee3b48380c35d4
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 8 03:03:26 2025 +0900
+
+    add model/ view/ controller/
+
+commit b8fc184d6ce7deff6c19bfa3d7b8fb78984df52f
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Apr 7 14:05:56 2025 +0900
+
+    Rename init.sql ->schema.sql
+
+commit ebadc98f4d8413c9233203e5b85beb78ac8ffb18
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Apr 7 14:05:07 2025 +0900
+
+    Rename init.sql ->schema.sql
+
+commit 26aa9ce8b3feb23693a747751c0e9b545f344c45
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Apr 7 10:09:25 2025 +0900
+
+    Update docs/README.md
+
+commit 1d9982d3b178d770c74d6ee4a34eb33862d53073
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Apr 7 01:54:18 2025 +0900
+
+    Update setup.md
+
+commit 162e1f7ebbc86374cdc55ab13b3b56f44e79091c
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Mon Apr 7 01:52:37 2025 +0900
+
+    Update setup.md
+
+commit 856f7d3a48cdd8b281c43bb557d778789602f2ad
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Sun Apr 6 23:59:25 2025 +0900
+
+    Apply .gitignore
+
+commit 828282a16898bb991118164cb8f72ed8bd9903ac
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed Apr 2 16:13:25 2025 +0900
+
+    Update docs/development/setup.md
+
+commit 4912edca2c81894bb612789cbdd4065fef5b4594
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed Apr 2 16:04:21 2025 +0900
+
+    Add docs/development/setup.md
+
+commit 75ca2b0e5ccb4ff0d6676fdd405dda289648943d
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed Apr 2 16:03:17 2025 +0900
+
+    Add docs/development/setup.md
+
+commit 838fe7d044c646f062d19e5affdcb7ca51521aa9
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed Apr 2 15:39:22 2025 +0900
+
+    Remove .env.backend from Git tracking
+
+commit 8076834543ecfa59df13531ae12002961891fd05
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed Apr 2 15:37:38 2025 +0900
+
+    Update test code
+
+commit 76c842d34b4336b5ff0722234e9c663dcd32b5c8
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed Apr 2 15:23:42 2025 +0900
+
+    Update Dockerfile&docker-compose, Add test code
+
+commit deb5665d64e3953b9578928a754264a1fe1bd59c
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed Apr 2 11:15:41 2025 +0900
+
+    Update README.md
+
+commit ab93c2cbfe459898496e930a6ae3709e28d7801a
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed Apr 2 11:08:57 2025 +0900
+
+    Update Dockerfile, docker-compose
+
+commit 7f1377b5812915eee9c974d1eb3d92c96d515887
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Wed Apr 2 10:49:50 2025 +0900
+
+    Add Dockerfile, docker-compose
+
+commit 11585def2a1a3287b609d3faeddbade38c0bad13
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 1 21:53:54 2025 +0900
+
+    Update Repo Structure
+
+commit 3829920ec21ff6e96693191a0595e8560bbe3172
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 1 21:46:16 2025 +0900
+
+    Update Repo Structure
+
+commit 07d5d4bae489512c5d3299d43608c84b24d19562
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 1 21:44:10 2025 +0900
+
+    Update Repo Structure
+
+commit 972df64c7df04a9e50b5f6a63ac712e89ee81af5
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 1 21:41:52 2025 +0900
+
+    Update Repo Structure
+
+commit 662e11ac7892b5ed42442f0d5fcacd5714260671
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Tue Apr 1 21:36:26 2025 +0900
+
+    Update Repo Structure
+
+commit dfc3e103fbd45040be9daaee46924fa8c554ad58
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Thu Mar 27 19:42:11 2025 +0900
+
+    Update ./docs/README.md
+
+commit 297059f784a3277f6222797ea81aa01c55c91256
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Thu Mar 27 19:40:47 2025 +0900
+
+    Update ./docs/README.md
+
+commit 8bbf046d44eea66dead7637f9ef556125e833aca
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Thu Mar 27 18:59:15 2025 +0900
+
+    Update README.md
+
+commit 9d4f466e7652400b8770bf108102736dba3d52ae
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Thu Mar 27 18:49:51 2025 +0900
+
+    Update README.md
+
+commit 2702596a1a672b52fb4782a2f90bdb980972d993
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Thu Mar 27 18:44:44 2025 +0900
+
+    init README.md
+
+commit a11c1fc5e72c5cf087ed018d109e693ec8e9ae2f
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Thu Mar 27 18:42:16 2025 +0900
+
+    init README.md
+
+commit da09734553ba925e60d54544be63b39be3800e77
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Thu Mar 27 18:37:10 2025 +0900
+
+    init README.md
+
+commit e5930654ffc6b45a3d5ba550df1fa02ac0cbe824
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Thu Mar 27 18:12:25 2025 +0900
+
+    init repo
+
+commit 573096b559e0bbd35c0f78b9a547b60f5561ddd9
+Author: Woojin Kim <woojinwork16@gmail.com>
+Date:   Thu Mar 27 18:12:08 2025 +0900
+
+    init repo
+
+commit a2a8e43490d083c4f535aa7fe49c4d21213f0e1d
+Author: kangarrro <121293137+kangarrro@users.noreply.github.com>
+Date:   Thu Mar 27 18:08:43 2025 +0900
+
+    Initial commit

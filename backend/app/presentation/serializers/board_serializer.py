@@ -9,5 +9,5 @@ def serialize_board(board: Board) -> dict:
         "date": board.created_at.strftime("%Y-%m-%d %H:%M:%S"),
         "like": board.num_like,
         "title": board.title,
-        "writer": board.user_id
+        "writer": board.author.nickname
     }
