@@ -9,7 +9,7 @@ from app.presentation.serializers.comment_serializer import *
 
 board_bp = Blueprint("board", __name__, url_prefix="/board")
 
-@board_bp.route("", methods=["GET"])
+@board_bp.route("/", methods=["GET"])
 def get_all_board():
     sort = request.args.get('sort')
     if sort == 'num_likes':
@@ -47,7 +47,7 @@ def get_by_board_id(board_id):
     )
     return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
 
-@board_bp.route("", methods=["POST"])
+@board_bp.route("/", methods=["POST"])
 @token_required
 def create_board():
     try:
