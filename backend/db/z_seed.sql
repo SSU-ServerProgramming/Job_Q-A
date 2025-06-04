@@ -14,19 +14,18 @@ VALUES
 --     ('rest-point', 'rest-point@example.com', 'password3', 1),
 --     ('kim_tae_young', 'kim_tae_young@example.com', 'password4', 1);
 
-INSERT INTO categories (name) 
+INSERT INTO categories (id, name) 
 VALUES
-    ("정보기술(IT)"),
-    ("의료/보건"),
-    ("교육/연구"),
-    ("금융/회계"),
-    ("예술/디자인"),
-    ("부동산"),
-    ("정치/행정"),
-    ("음악/악기"),
-    ("유통/무역"),
-    ("환경/에너지"),
-    ("기타");
+    (0, "정보기술(IT)"),
+    (1, "의료/보건"),
+    (2, "교육/연구"),
+    (3, "금융/회계"),
+    (4, "예술/디자인"),
+    (5, "부동산"),
+    (6, "정치/행정"),
+    (7, "유통/무역"),
+    (8, "환경/에너지"),
+    (9, "기타");
 
 -- INSERT INTO boards (user_id, title, category_id, content)
 -- VALUES
