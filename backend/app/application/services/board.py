@@ -74,16 +74,20 @@ class BoardService(BaseService):
             num_comment = 0
         )
         repo = BoardRepository(self.session)
-        return repo.create(board=new_board)
+        result = repo.create(board=new_board)
+        self.session.commit()
+        return result
     
-    def update_board(self, board_id:int, user_id:int, category_id:int, title:str, content:str):
+    def update_board(self, board_id:int, user_id:int, category_id:int, title:str, content:str) -> Board:
         """게시물을 수정합니다."""
         repo = BoardRepository(self.session)
         board = repo.get_by_id(board_id)
         board.category_id = category_id
         board.title = title
         board.content = content
-        return repo.update(board=board)
+        result = repo.update(board=board)
+        self.session.commit()
+        return result
     
     def delete_board(self, board_id: int) -> None:
         repo = BoardRepository(self.session)
@@ -91,6 +95,7 @@ class BoardService(BaseService):
         if board is None:
             raise ValueError("게시물이 존재하지 않습니다.")
         repo.delete(board_id)
+        self.session.commit()
 
     def add_like(self, user_id: int, board_id: int):
         """게시물에 좋아요를 추가합니다."""
@@ -107,7 +112,7 @@ class BoardService(BaseService):
         like_repo.insert_like(user_id=user_id, board_id=board_id)
 
         board.num_like += 1
-        # self.session.commit()
+        self.session.commit()
 
     def delete_like(self, user_id: int, board_id: int) -> None:
         """게시물에 좋아요를 취소합니다."""
@@ -124,6 +129,6 @@ class BoardService(BaseService):
 
         like_repo.delete_like(user_id=user_id, board_id=board_id)
         board.num_like = max(0, board.num_like - 1)
-        # self.session.commit()
+        self.session.commit()
 
 # 아직 오류 처리 안했음
