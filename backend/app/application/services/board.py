@@ -29,7 +29,7 @@ class BoardService(BaseService):
         repo = BoardRepository(self.session)
         return repo.get_by_num_like(skip=skip, limit=limit)
     
-    def get_by_board_id(self, board_id:int):
+    def get_by_board_id(self, board_id:int, user_id:int):
         """board id에 대응되는 게시물을 반환합니다.
         현재 Board, Comment 객체에 동적으로 is_liked을 임시로 추가해두었습니다.
         """
@@ -44,22 +44,33 @@ class BoardService(BaseService):
         board_result = copy.deepcopy(board)
         comments_result = copy.deepcopy(comments)
 
-        if board_like_repo.get_by_user_board_id(board.user_id, board.id) is not None:
-            if board.user_id == (board_like_repo.get_by_user_board_id(board.user_id, board.id)).user_id:
-                board_result.is_liked = True
-            else:
-                board_result.is_liked = False
+        if user_id == board_result.user_id:
+            board_result.is_liked = True
         else:
             board_result.is_liked = False
-    
+
         for c in comments_result:
-            if comment_like_repo.get_by_user_comment_id(c.user_id, c.id) is not None:
-                if c.user_id == (comment_like_repo.get_by_user_comment_id(c.user_id, c.id)).user_id:
+            if user_id == c.user_id:
                     c.is_liked = True
-                else:
-                    c.is_liked = False
             else:
                 c.is_liked = False
+
+        # if board_like_repo.get_by_user_board_id(board.user_id, board.id) is not None:
+        #     if board.user_id == (board_like_repo.get_by_user_board_id(board.user_id, board.id)).user_id:
+        #         board_result.is_liked = True
+        #     else:
+        #         board_result.is_liked = False
+        # else:
+        #     board_result.is_liked = False
+    
+        # for c in comments_result:
+        #     if comment_like_repo.get_by_user_comment_id(c.user_id, c.id) is not None:
+        #         if c.user_id == (comment_like_repo.get_by_user_comment_id(c.user_id, c.id)).user_id:
+        #             c.is_liked = True
+        #         else:
+        #             c.is_liked = False
+        #     else:
+        #         c.is_liked = False
             
         return board_result, comments_result
 

@@ -34,8 +34,10 @@ def get_by_category_id(category_id):
     return HttpResponseAdapter.from_rest(response, http_status=200).to_flask_response()
 
 @board_bp.route("/detail/<int:board_id>", methods=["GET"])
+@token_required
 def get_by_board_id(board_id):
-    board, comments = BoardService(g.db).get_by_board_id(board_id=board_id)
+    user_id = request.user['user_id']
+    board, comments = BoardService(g.db).get_by_board_id(board_id, user_id)
     
     response_data = {
         "board": serialize_board_detail(board),
