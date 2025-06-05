@@ -31,6 +31,6 @@ class Comment(Base, TimestampMixin):
     author: Mapped["User"] = relationship("User", back_populates="comments")
     board: Mapped["Board"] = relationship("Board", back_populates="comments")
     parent: Mapped["Comment"] = relationship("Comment", remote_side=[id], back_populates="replies")
-    replies: Mapped[List["Comment"]] = relationship("Comment", back_populates="parent", cascade="all, delete-orphan")
+    replies: Mapped[List["Comment"]] = relationship("Comment", back_populates="parent", cascade="all, delete-orphan", passive_deletes=True)
     likes: Mapped[List["CommentLike"]] = relationship(back_populates="comment", cascade="all, delete-orphan")
 
