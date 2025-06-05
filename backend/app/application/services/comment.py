@@ -27,7 +27,9 @@ class CommentService(BaseService):
                 raise ValueError("원댓글이 존재하지 않습니다.")
         repo = CommentRepository(self.session)
         board.num_comment += 1
-        return repo.create(user_id=user_id, board_id=board_id, content=content, parent_comment_id=parent_comment_id)
+        result = repo.create(user_id=user_id, board_id=board_id, content=content, parent_comment_id=parent_comment_id)
+        self.session.commit()
+        return result
 
     def update_comment(self, comment_id: int, user_id: int, content: str) -> Comment:
         repo = CommentRepository(self.session)
@@ -37,8 +39,10 @@ class CommentService(BaseService):
             raise ValueError("댓글이 존재하지 않습니다.")
         if comment.user_id != user_id:
             raise ValueError("댓글 수정 권한이 없습니다.")
-
-        return repo.update(comment=comment, content=content)
+        
+        result = repo.update(comment=comment, content=content)
+        self.session.commit()
+        return result
 
     def delete_comment(self, comment_id: int, user_id: int) -> Comment:
         repo = CommentRepository(self.session)
@@ -53,6 +57,7 @@ class CommentService(BaseService):
         board = board_repo.get_by_id(board_id=comment.board_id)
         board.num_comment = max(0, board.num_comment - 1)
         repo.delete(comment)
+        self.session.commit()
         return comment
 
     def like_comment(self, comment_id: int, user_id: int) -> Comment | None:
@@ -76,7 +81,6 @@ class CommentService(BaseService):
                 raise ValueError("이미 좋아요한 댓글입니다.")
             else:
                 raise ValueError("좋아요 처리 중 오류가 발생했습니다.")
-      
 
     def unlike_comment(self, comment_id: int, user_id: int) -> Comment | None:
         comment_repo = CommentRepository(self.session)
