@@ -6,14 +6,17 @@
 
 ### 2. Features
 
+### 3. How to RUN
+> docs/backend/setup.md
+- [setup.md](https://github.com/SSU-ServerProgramming/Job_Q-A/blob/main/docs/backend/setup.md) 를 참고해주세요.
 
-### 3. Tech Stack
+### 4. Tech Stack
 - **iOS** : Swift
 - **Back-End** : Python Flask
 - **DataBase** : MySQL
 
 
-### 4. Project Structure
+### 5. Project Structure
 Job_Q-A/<br>
 &nbsp;&nbsp;&nbsp;├─ [/docs](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/docs) : 교수자 제출용, 개발 문서 등<br>
 &nbsp;&nbsp;&nbsp;├─ [/ios](https://github.com/SSU-ServerProgramming/Job_Q-A/tree/main/ios) : iOS souce code<br>
